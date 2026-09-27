@@ -1,0 +1,1434 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Prosolve — Vocab Lab</title>
+<style>
+:root{--bg:#0b0e14;--card:#121722;--card2:#171d29;--text:#f5f7fb;--muted:#9aa4b2;--line:#252d3b;--accent:#7c5cff;--accent2:#9a83ff;--good:#34d399;--bad:#fb7185;--warn:#fbbf24}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0%,#17132e 0,#0b0e14 40%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}button,input,textarea{font:inherit}button{cursor:pointer}
+.app{max-width:1080px;margin:auto;padding:16px 14px 45px}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.brand{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,var(--accent),#4c8dff);display:grid;place-items:center;font-weight:800}.brand h1{font-size:18px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:12px}.pill{border:1px solid var(--line);background:#0f141d;padding:7px 10px;border-radius:999px;color:#c7cfda;font-size:11px}
+.grid{display:grid;grid-template-columns:1.35fr .95fr;gap:13px}.card{background:linear-gradient(180deg,#141a26,#10151f);border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:0 12px 40px #00000020}.hero{padding:22px}.eyebrow{font-size:11px;color:#a99dff;font-weight:800;letter-spacing:.09em;text-transform:uppercase}.hero h2{font-size:30px;line-height:1.08;margin:7px 0 9px}.hero p{color:var(--muted);max-width:660px;line-height:1.55;margin:0}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.btn{border:0;border-radius:12px;padding:10px 13px;font-weight:750}.primary{background:var(--accent);color:#fff}.primary:hover{background:var(--accent2)}.secondary{background:#1a2230;color:#eef2f7;border:1px solid #2a3444}.ghost{background:transparent;color:#cbd5e1;border:1px dashed #364153}.danger{background:#2a1620;color:#ffb2bf;border:1px solid #512333}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:13px}.stat{background:#0f141d;border:1px solid var(--line);border-radius:15px;padding:12px;text-align:left}.stat.clickable{cursor:pointer;transition:transform .15s,border-color .15s,background .15s}.stat.clickable:hover{transform:translateY(-1px);border-color:#4b5870;background:#111824}.stat.clickable:active{transform:translateY(0)}.stat strong{display:block;font-size:21px;line-height:1.1}.stat span{display:block;color:var(--muted);font-size:11px;margin-top:4px}.stat-hint{display:block;color:#6f7a89;font-size:9px;font-style:normal;margin-top:8px}.bar{height:7px;background:#202837;border-radius:999px;overflow:hidden;margin-top:9px}.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#4c8dff);width:0;transition:width .25s}
+.click-note{margin-top:10px;color:#788497;font-size:11px;line-height:1.45}
+.progress-modal-list{display:grid;gap:8px;margin-top:12px}.progress-modal-item{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:#0e131c}.progress-modal-main{min-width:0}.progress-modal-main b{font-size:14px}.progress-modal-main small{display:block;color:var(--muted);margin-top:4px;line-height:1.4}.progress-modal-score{white-space:nowrap}.progress-modal-empty{padding:20px;text-align:center;color:var(--muted);border:1px dashed #334052;border-radius:14px;line-height:1.5}
+.modal-tab-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.modal-tab{background:#1a2230;border:1px solid #2b3546;color:#cbd5e1;padding:7px 10px;border-radius:10px;font-size:11px}.modal-tab.active{background:#2a2347;border-color:#6758d8;color:#fff}
+.text-tight{line-height:1.38}.section-title h3{line-height:1.2}.set-title{font-size:14px;line-height:1.2}.set-meta{line-height:1.4}.set-word-main small{line-height:1.4}.word b{line-height:1.2}.word small{line-height:1.4}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:0 0 11px}.section-title h3{margin:0;font-size:16px}.muted{color:var(--muted);font-size:12px}.word-list{display:grid;gap:8px}.word{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:#0e131c}.word b{font-size:14px}.word small{display:block;color:var(--muted);margin-top:3px;line-height:1.35}.tag{padding:5px 8px;border-radius:999px;font-size:10px;font-weight:800;white-space:nowrap}.green{background:#0d2a21;color:#78f0c6}.yellow{background:#2c250f;color:#f7cf64}.red{background:#2e151e;color:#ff9caf}.empty{padding:24px;text-align:center;border:1px dashed #334052;border-radius:15px;color:var(--muted);line-height:1.5}
+.page{display:none}.page.active{display:block}.back{margin-bottom:11px}.progress-top{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.learn-card{min-height:280px;display:flex;align-items:center;justify-content:center;text-align:center}.learn-word{font-size:45px;font-weight:850;margin:9px 0}.learn-meaning{font-size:18px;color:#dfe5ef}.learn-example{color:var(--muted);max-width:680px;line-height:1.6;margin:15px auto}.quiz-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.question{font-size:21px;line-height:1.38;margin:21px 0}.answer-box{display:flex;gap:9px}.answer-box input{flex:1;background:#0c1119;border:1px solid #2b3546;color:#fff;border-radius:12px;padding:14px;outline:none;font-size:18px}.answer-box input:focus{border-color:#6758d8}.answer-box button{min-width:110px}.quiz-mobile-bar{display:none}.quiz-mobile-bar .btn{min-width:0}.quiz-mobile-bar .btn.primary{box-shadow:0 10px 28px rgba(124,92,255,.28)}.quiz-mobile-bar.show{display:flex;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--ime-offset, 0px) + 14px + env(safe-area-inset-bottom));z-index:60;gap:10px;width:min(360px,calc(100vw - 28px));padding:10px;background:rgba(12,16,24,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid #35405a;border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.5)}.quiz-mobile-bar.show .btn{height:52px;border-radius:14px;font-size:16px;font-weight:800}.quiz-mobile-bar.show .btn.primary{flex:1}.quiz-mobile-bar.show .btn.secondary{flex:0 0 76px}.result{margin-top:13px;padding:13px;border-radius:13px;background:#0e131c;border:1px solid var(--line);line-height:1.55}.result.good{border-color:#267a5b;background:#0d2a21}.result.bad{border-color:#7e3042;background:#2e151e}.direction-note{padding:11px 12px;border:1px solid #2d3750;background:#0f141e;border-radius:12px;color:#cbd5e1;line-height:1.5;font-size:12px;margin-top:12px}.analysis-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.analysis-col{min-width:0}.analysis-item{padding:13px;border:1px solid var(--line);border-radius:14px;background:#0e131c}.analysis-item+.analysis-item{margin-top:8px}.analysis-item b{font-size:15px}.analysis-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.tiny{font-size:10px;color:var(--muted)}.score-row{display:flex;justify-content:space-between;align-items:center;margin-top:9px;font-size:12px}.score-bar{height:6px;background:#202837;border-radius:999px;overflow:hidden;margin-top:5px}.score-bar i{display:block;height:100%;background:linear-gradient(90deg,#7c5cff,#4c8dff)}
+.eval-grid{display:grid;gap:10px}.eval-card{padding:15px;border:1px solid #42344d;border-radius:16px;background:linear-gradient(180deg,#171323,#11121c)}.eval-word{font-size:24px;font-weight:850}.eval-meaning{font-size:16px;margin-top:5px;color:#e7eaf1}.eval-example{margin-top:11px;color:#aeb7c5;line-height:1.55}.reason{margin-top:9px;font-size:11px;color:#f4c7cf}.divider{height:1px;background:var(--line);margin:16px 0}.summary-box{padding:14px;border-radius:14px;background:#0e131c;border:1px solid var(--line);line-height:1.6}.success-box{border-color:#245d49;background:#0c241d}.warn-box{border-color:#5b4b1f;background:#201b0c}
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:14px;z-index:20}.modal.open{display:flex}.modal-box{width:min(720px,100%);max-height:88vh;overflow:auto;background:#10151f;border:1px solid #2a3444;border-radius:22px;padding:18px}.modal-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.modal-top h3{margin:0}.close{background:#1a2230;border:1px solid #2b3546;color:#fff;width:36px;height:36px;border-radius:11px}.pastebox{width:100%;min-height:250px;background:#0c1119;border:1px solid #2b3546;color:#fff;border-radius:15px;padding:13px;outline:none;resize:vertical;line-height:1.6}.hint{margin:9px 0 0;color:var(--muted);font-size:11px;line-height:1.5}.prep{display:none;margin-top:13px;border:1px solid var(--line);background:#0e131c;border-radius:14px;padding:12px}.prep.show{display:block}.prep-row{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid #202837}.prep-row:last-child{border-bottom:0}.prep-name{font-weight:700}.prep-state{color:var(--muted);font-size:11px}.notice{padding:11px 12px;border-radius:12px;border:1px solid #493d17;background:#211c0d;color:#ecd27a;font-size:12px;line-height:1.45;margin-top:10px}
+.library-tools{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:12px}.library-search{flex:1;min-width:220px;background:#0c1119;border:1px solid #2b3546;color:#fff;border-radius:12px;padding:12px 13px;outline:none}.library-search:focus{border-color:#6758d8}.library-search::placeholder{color:#6f7a89}.priority-pill{font-size:10px;padding:6px 9px;border-radius:999px;background:#2e151e;color:#ff9caf;font-weight:800}.set-card{border:1px solid var(--line);border-radius:15px;background:#0e131c;padding:0;overflow:hidden}.set-card+.set-card{margin-top:9px}.set-summary{list-style:none;cursor:pointer;padding:13px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px}.set-summary::-webkit-details-marker{display:none}.set-title{font-weight:800}.set-meta{font-size:11px;color:var(--muted);margin-top:3px}.set-body{padding:0 12px 12px}.set-words{display:grid;gap:7px}.set-word{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 10px;border:1px solid #202837;border-radius:11px;background:#0b1018}.set-word-main{min-width:0}.set-word-main b{font-size:13px}.set-word-main small{display:block;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.set-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:10px}.search-empty{padding:18px;text-align:center;color:var(--muted);border:1px dashed #334052;border-radius:14px}.set-summary-left{min-width:0}.set-summary-right{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}.set-weak-pill{font-size:10px;padding:5px 8px;border-radius:999px;background:#2e151e;color:#ff9caf;font-weight:800}.set-eval-btn{padding:6px 9px}.set-train-btn{padding:6px 9px}
+.library-head-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.library-select-btn{padding:7px 10px}.library-selection-bar{display:none;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap;margin:0 0 12px;padding:10px 11px;border:1px solid #333a55;border-radius:13px;background:linear-gradient(180deg,#171a2b,#111521)}.library-selection-bar.show{display:flex}.selection-bar{display:none;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap;margin:0 0 10px;padding:10px 11px;border:1px solid #333a55;border-radius:13px;background:linear-gradient(180deg,#171a2b,#111521)}.selection-bar.show{display:flex}.selection-left{font-size:11px;color:#d9deea}.selection-actions{display:flex;gap:7px;flex-wrap:wrap}.selection-actions .btn{padding:7px 9px}.word.selectable{cursor:pointer}.word.selected{border-color:#6758d8;box-shadow:0 0 0 1px rgba(124,92,255,.22)}.word-select-marker{width:20px;height:20px;flex:0 0 20px;border-radius:7px;border:1px solid #3b4659;background:#0b1018;display:grid;place-items:center;color:#fff;font-size:12px;font-weight:900}.word-select-marker.checked{background:#7c5cff;border-color:#9a83ff}.library-selection-left{font-size:11px;color:#d9deea}.library-selection-actions{display:flex;gap:7px;flex-wrap:wrap}.library-selection-actions .btn{padding:7px 9px}.set-card.selected{border-color:#6758d8;box-shadow:0 0 0 1px rgba(124,92,255,.22),0 12px 25px rgba(124,92,255,.08)}.set-card.select-mode .set-summary{cursor:pointer}.set-select-marker{width:20px;height:20px;flex:0 0 20px;border-radius:7px;border:1px solid #3b4659;background:#0b1018;display:grid;place-items:center;color:#fff;font-size:12px;font-weight:900;transition:.15s}.set-select-marker.checked{background:#7c5cff;border-color:#9a83ff;box-shadow:0 0 0 3px rgba(124,92,255,.12)}.set-summary-left-wrap{display:flex;align-items:center;gap:10px;min-width:0}.library-mini-note{margin:0 0 10px;color:#6f7a89;font-size:10px;line-height:1.4}
+
+@media(max-width:800px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.hero h2{font-size:25px}.learn-word{font-size:37px}.analysis-grid{grid-template-columns:1fr}.answer-box{flex-direction:column}.answer-box button{width:100%}.set-actions{justify-content:stretch}.quiz-mobile-bar.show{display:flex}.answer-box button{display:none}.result{margin-bottom:6px}#nextQuizBtn{display:none !important}.set-actions .btn{flex:1;min-width:0}.modal-box{padding:15px}.stat{padding:11px}.stat strong{font-size:20px}.stat-hint{font-size:9px}.question{font-size:19px}.question b[style*="38px"]{font-size:32px !important}.question b[style*="24px"]{font-size:21px !important}}
+
+.prompt-label{font-size:12px;letter-spacing:.12em;color:#9f8cff;font-weight:800;text-transform:uppercase}
+
+/* ===== universal language controls ===== */
+.lang-row{display:flex;gap:9px;align-items:stretch;margin:0 0 11px}
+.lang-field{flex:1;display:flex;flex-direction:column;gap:6px}
+.lang-field span,.lang-auto span{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#778293;font-weight:800}
+.lang-field select{width:100%;background:#0a0e15;border:1px solid #293241;color:#f7f8fb;border-radius:12px;padding:11px 12px;outline:none}
+.lang-field select:focus{border-color:#6758d8;box-shadow:0 0 0 3px rgba(103,88,216,.1)}
+.lang-auto{min-width:132px;background:#0d121a;border:1px solid #242d3d;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;justify-content:center;gap:5px}
+.lang-auto strong{font-size:12px;color:#e1e6ee}
+.learn-meaning-simple{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:600px){.lang-row{flex-direction:column}.lang-auto{min-width:0;min-height:48px}}
+
+/* ===== v10 — refined elegant UI ===== */
+:root{
+  --bg:#090b11;
+  --surface:#11151f;
+  --surface-2:#151a26;
+  --surface-3:#0d1119;
+  --text:#f4f5f8;
+  --muted:#8f98a8;
+  --muted-2:#687284;
+  --line:#232a38;
+  --line-soft:#1b2230;
+  --accent:#8b6cff;
+  --accent-2:#a68cff;
+  --blue:#5d9cff;
+  --good:#35d6a0;
+  --bad:#ff718b;
+  --warn:#f3c75f;
+  --shadow:0 18px 55px rgba(0,0,0,.24);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:
+    radial-gradient(900px 420px at 50% -120px,rgba(139,108,255,.16),transparent 68%),
+    radial-gradient(650px 380px at 100% 25%,rgba(93,156,255,.07),transparent 70%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+button,input,textarea{font:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.app{max-width:1080px;margin:auto;padding:22px 16px 56px}
+.top{padding:2px 2px 16px;margin-bottom:4px}
+.brand{gap:12px}
+.logo{
+  width:44px;height:44px;border-radius:14px;
+  background:linear-gradient(145deg,#9477ff,#5f83ff);
+  box-shadow:0 10px 28px rgba(113,88,255,.25),inset 0 1px rgba(255,255,255,.25);
+  font-size:17px;letter-spacing:-.03em;
+}
+.brand h1{font-size:17px;letter-spacing:-.02em}
+.brand p{font-size:11px;color:var(--muted-2);margin-top:4px}
+.pill{background:rgba(17,21,31,.8);border-color:var(--line);padding:7px 10px;color:#aab3c1}
+.grid{gap:15px}
+.card{
+  background:linear-gradient(180deg,rgba(20,25,36,.96),rgba(14,18,27,.98));
+  border:1px solid var(--line);
+  border-radius:22px;
+  box-shadow:var(--shadow);
+}
+.hero{padding:25px}
+.eyebrow,.prompt-label{font-size:10px;letter-spacing:.15em;color:#a895ff;font-weight:850}
+.hero h2{font-size:32px;letter-spacing:-.035em;line-height:1.08;margin:8px 0 11px}
+.hero p{font-size:13px;color:#9da6b5;line-height:1.7;max-width:720px}
+.actions{gap:8px;margin-top:18px}
+.btn{border-radius:12px;padding:10px 14px;font-size:13px;font-weight:760;letter-spacing:-.01em;transition:transform .16s,filter .16s,border-color .16s,background .16s}
+.btn:active{transform:scale(.98)}
+.primary{background:linear-gradient(135deg,#8d6cff,#7058e8);box-shadow:0 8px 24px rgba(124,92,255,.18)}
+.primary:hover{filter:brightness(1.07)}
+.secondary{background:#181e2a;border-color:#2a3342}
+.ghost{border-style:solid;background:transparent;color:#aeb7c6}
+.danger{background:rgba(103,24,43,.28);border-color:#4d2534}
+.stats{gap:10px;margin-top:15px}
+.stat{
+  min-height:91px;
+  background:linear-gradient(180deg,#121722,#0f141d);
+  border-color:var(--line);
+  border-radius:17px;
+  padding:14px;
+  position:relative;
+  overflow:hidden;
+}
+.stat.clickable:hover{border-color:#3b4658;background:#141a25;transform:translateY(-2px)}
+.stat strong{font-size:24px;letter-spacing:-.03em;color:var(--text)!important;text-shadow:0 1px 12px rgba(124,92,255,.18)}
+.stat span{font-size:11px;color:#aeb7c6;margin-top:6px}
+.stat-hint{font-size:9px;color:#596374;margin-top:9px}
+.bar{height:6px;background:#1b2230;margin-top:10px}
+.bar>i{background:linear-gradient(90deg,var(--accent),var(--blue))}
+.section-title{margin-bottom:12px}
+.section-title h3{font-size:17px;letter-spacing:-.02em}
+.muted{font-size:11px;color:var(--muted-2)}
+.word,.analysis-item,.progress-modal-item,.set-card,.set-word,.result,.summary-box,.direction-note,.notice{
+  background:#0d121a;
+  border-color:var(--line-soft);
+}
+.word{padding:13px 14px;border-radius:15px}
+.word b,.set-word-main b{font-size:14px;letter-spacing:-.01em}
+.word small,.set-word-main small{color:#7f8999;line-height:1.45}
+.tag{padding:5px 8px;font-size:9px;letter-spacing:.02em}
+.green{background:rgba(18,91,69,.28);color:#6fe6ba}
+.yellow{background:rgba(104,77,11,.27);color:#f3cd67}
+.red{background:rgba(105,22,43,.28);color:#ff91a7}
+.page.active{animation:pageIn .22s ease-out}
+@keyframes pageIn{from{opacity:.65;transform:translateY(3px)}to{opacity:1;transform:none}}
+.back{margin-bottom:13px}
+.learn-card{min-height:320px;border-radius:22px}
+.learn-word{font-size:48px;letter-spacing:-.04em}
+.learn-meaning{font-size:17px;color:#d8dee8}
+.learn-example{font-size:13px;color:#7f8999;line-height:1.7}
+.learn-pronunciation{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;margin:12px auto 0;padding:8px 10px;border:1px solid #2a3444;background:#0c1119;border-radius:12px;width:max-content;max-width:100%;color:#bfc7d5;font-size:12px}
+.learn-pronunciation-label{color:#7f8999;font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+.learn-phonetic{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#e8eaf0;font-size:13px}
+.pronounce-btn{border:1px solid #3b4560;background:#171d2a;color:#fff;border-radius:9px;padding:6px 9px;font-size:11px;font-weight:750}
+.pronounce-btn:disabled{opacity:.5;cursor:not-allowed}
+.learn-memory-note{margin-top:12px;color:#8f9aaa;font-size:11px;line-height:1.5}
+
+.quiz-head{padding-bottom:2px}
+.question{font-size:21px;line-height:1.5;letter-spacing:-.015em;margin:24px 0}
+.answer-box input,.library-search,.pastebox{
+  background:#0a0e15;
+  border:1px solid #293241;
+  box-shadow:inset 0 1px rgba(255,255,255,.018);
+}
+.answer-box input{padding:14px 15px;border-radius:13px}
+.answer-box input:focus,.library-search:focus,.pastebox:focus{border-color:#6758d8;box-shadow:0 0 0 3px rgba(103,88,216,.1)}
+.result{border-radius:15px;padding:14px;font-size:13px}
+.result.good{border-color:#23634e;background:rgba(11,51,40,.55)}
+.result.bad{border-color:#713042;background:rgba(65,19,31,.55)}
+.quiz-mobile-bar.show{background:rgba(12,16,24,.9);border-color:#2a3445;box-shadow:0 14px 40px rgba(0,0,0,.45);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.analysis-grid{gap:13px}
+.analysis-item{padding:14px;border-radius:15px}
+.score-bar{background:#1a2130}
+.score-bar i{background:linear-gradient(90deg,var(--accent),var(--blue))}
+.modal{background:rgba(3,5,9,.76);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+.modal-box{background:linear-gradient(180deg,#131925,#0e131c);border-color:#2a3342;border-radius:22px;box-shadow:0 25px 80px rgba(0,0,0,.5)}
+.modal-top h3{font-size:17px;letter-spacing:-.02em}
+.close{background:#181e29;border-color:#2a3444}
+.pastebox{line-height:1.65}
+.hint{color:#778293}
+.library-tools{gap:8px}
+.set-card{border-radius:16px}
+.set-summary{padding:14px}
+.set-body{padding:0 13px 13px}
+.set-word{padding:10px 11px;border-radius:12px}
+.set-actions{margin-top:11px}
+.divider{background:#1e2633}
+.empty,.search-empty,.progress-modal-empty{border-color:#293343;background:rgba(10,14,21,.35)}
+.notice{border-color:#4b3d18;background:rgba(57,44,9,.35);color:#dfc56f}
+/* Make secondary information visually quieter than the main action. */
+.tiny,.set-meta,.analysis-meta{color:#727d8e}
+@media(max-width:800px){
+  .app{padding:15px 12px 48px}
+  .hero{padding:20px}
+  .hero h2{font-size:27px}
+  .hero p{font-size:12.5px;line-height:1.65}
+  .card{border-radius:19px}
+  .stats{gap:8px}
+  .stat{min-height:86px;padding:12px}
+  .stat strong{font-size:22px}
+  .learn-card{min-height:270px}
+  .learn-word{font-size:39px}
+  .question{font-size:19px;line-height:1.48}
+  .modal-box{border-radius:19px}
+}
+
+
+/* ===== Prosolve — signature visual layer ===== */
+:root{
+  --pro-glow:rgba(139,108,255,.22);
+  --pro-glow-blue:rgba(93,156,255,.13);
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:-30vh -20vw auto;
+  height:55vh;
+  pointer-events:none;
+  background:
+    radial-gradient(closest-side at 25% 35%,var(--pro-glow),transparent 72%),
+    radial-gradient(closest-side at 76% 25%,var(--pro-glow-blue),transparent 70%);
+  filter:blur(14px);
+  opacity:.72;
+  z-index:-1;
+}
+.app{position:relative}
+.top{
+  padding:8px 2px 19px;
+  border-bottom:1px solid rgba(255,255,255,.045);
+}
+.brand{align-items:center}
+.logo{
+  position:relative;
+  isolation:isolate;
+  width:46px;height:46px;border-radius:15px;
+  background:linear-gradient(145deg,#9b7dff 0%,#7762f0 52%,#5b8fff 100%);
+  box-shadow:0 14px 34px rgba(109,84,242,.28), inset 0 1px 0 rgba(255,255,255,.3);
+  font-size:19px;font-weight:900;
+}
+.logo::after{
+  content:"";position:absolute;inset:1px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);pointer-events:none;
+}
+.brand-copy h1{
+  font-size:19px;
+  letter-spacing:-.035em;
+  line-height:1;
+  margin:0;
+  background:linear-gradient(90deg,#ffffff 10%,#d8d2ff 72%,#b7cfff 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.brand-copy p{
+  margin:6px 0 0;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.14em;
+  color:#707a8d;
+}
+.brand-copy p span{color:#8b6cff;margin:0 4px}
+.pill{box-shadow:inset 0 1px rgba(255,255,255,.03)}
+.card{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.hero{
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  width:240px;height:240px;
+  right:-80px;top:-110px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(139,108,255,.18),transparent 68%);
+  pointer-events:none;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  left:24px;right:24px;bottom:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(155,133,255,.22),transparent);
+}
+.hero h2{max-width:680px}
+.hero p{max-width:690px}
+.btn{min-height:42px}
+.primary{box-shadow:0 10px 28px rgba(124,92,255,.18),inset 0 1px rgba(255,255,255,.14)}
+.secondary{box-shadow:inset 0 1px rgba(255,255,255,.03)}
+.stat{box-shadow:inset 0 1px rgba(255,255,255,.02)}
+.stat.clickable:hover{box-shadow:0 10px 24px rgba(0,0,0,.18),inset 0 1px rgba(255,255,255,.03)}
+.section-title h3{font-weight:820}
+.word,.progress-modal-item,.analysis-item,.set-word{
+  transition:transform .15s,border-color .15s,background .15s,box-shadow .15s;
+}
+.word:hover,.progress-modal-item:hover,.analysis-item:hover,.set-word:hover{
+  transform:translateY(-1px);
+  border-color:#2d3749;
+  background:#101620;
+}
+.tag{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.learn-card{
+  position:relative;
+  background:
+    radial-gradient(circle at 50% 35%,rgba(139,108,255,.08),transparent 42%),
+    linear-gradient(180deg,rgba(11,15,23,.56),rgba(11,15,23,.18));
+  border:1px solid rgba(255,255,255,.025);
+}
+.learn-word{font-weight:900}
+.question b{letter-spacing:-.04em}
+.answer-box input{min-height:52px}
+.direction-note{background:linear-gradient(180deg,#101620,#0d121a)}
+.result{box-shadow:inset 0 1px rgba(255,255,255,.02)}
+.modal-box{box-shadow:0 30px 100px rgba(0,0,0,.58),inset 0 1px rgba(255,255,255,.025)}
+.set-card{box-shadow:inset 0 1px rgba(255,255,255,.02)}
+.set-summary{min-height:62px}
+.set-summary:hover{background:rgba(255,255,255,.015)}
+.priority-pill{letter-spacing:.04em}
+@media(max-width:800px){
+  .app{padding-top:12px}
+  .top{padding-bottom:15px}
+  .logo{width:42px;height:42px;border-radius:14px}
+  .brand-copy h1{font-size:18px}
+  .brand-copy p{font-size:8px}
+  .pill{font-size:10px}
+  .hero::after{left:20px;right:20px}
+}
+
+
+/* ===== Clean learning screen ===== */
+.learn-shell{padding:18px 18px 16px}
+.learn-card-simple{
+  margin-top:13px;
+  padding:30px 20px 22px;
+  border:1px solid rgba(255,255,255,.065);
+  border-radius:24px;
+  background:
+    radial-gradient(440px 190px at 50% -10%,rgba(139,108,255,.13),transparent 70%),
+    linear-gradient(180deg,#111722 0%,#0c1119 100%);
+  box-shadow:0 18px 55px rgba(0,0,0,.25), inset 0 1px rgba(255,255,255,.025);
+}
+.learn-overline{
+  text-align:center;
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:.22em;
+  color:#9280ff;
+  margin-bottom:28px;
+}
+.learn-section{
+  text-align:center;
+}
+.learn-section + .learn-section{
+  margin-top:22px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.055);
+}
+.learn-label{
+  font-size:10px;
+  line-height:1;
+  font-weight:850;
+  letter-spacing:.16em;
+  color:#7d899b;
+  text-transform:uppercase;
+}
+.learn-word-simple{
+  margin-top:12px;
+  font-size:clamp(40px,10vw,58px);
+  line-height:1.02;
+  font-weight:900;
+  letter-spacing:-.055em;
+  color:#f5f7fb;
+  overflow-wrap:anywhere;
+}
+.learn-meaning-simple{
+  margin-top:11px;
+  font-size:clamp(20px,5vw,28px);
+  line-height:1.25;
+  font-weight:700;
+  letter-spacing:-.025em;
+  color:#d8d2ff;
+  overflow-wrap:anywhere;
+}
+.pronunciation-card-simple{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top:22px;
+  padding:14px 14px 14px 15px;
+  border:1px solid #252e3e;
+  border-radius:16px;
+  background:rgba(5,8,14,.5);
+}
+.pronunciation-copy-simple{min-width:0;flex:1;text-align:left}
+.learn-phonetic-simple{
+  margin-top:8px;
+  color:#eef1f6;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:15px;
+  line-height:1.35;
+  overflow-wrap:anywhere;
+}
+.pronounce-btn-simple{
+  flex:0 0 auto;
+  border:1px solid #47516a;
+  background:#1a2130;
+  color:#fff;
+  border-radius:12px;
+  padding:10px 13px;
+  font-size:11px;
+  font-weight:800;
+  white-space:nowrap;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
+}
+.pronounce-btn-simple:hover:not(:disabled){background:#222c3e;border-color:#596783}
+.pronounce-btn-simple:disabled{opacity:.5;cursor:not-allowed}
+.learn-actions{margin-top:14px}
+@media(max-width:600px){
+  .learn-shell{padding:16px 12px 14px}
+  .learn-card-simple{padding:28px 16px 20px;border-radius:22px}
+  .learn-overline{margin-bottom:24px}
+  .pronunciation-card-simple{align-items:flex-end}
+  .pronounce-btn-simple{padding:10px 11px}
+}
+
+
+/* ===== v11 — clear translation hierarchy ===== */
+.learn-context-row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.auto-badge,.translation-note{font-size:9px;letter-spacing:.08em;text-transform:uppercase;font-weight:800;padding:5px 8px;border-radius:999px}
+.auto-badge{color:#9fa8b8;background:#111823;border:1px solid #252f3e}
+.translation-note{color:#7f8999;background:rgba(255,255,255,.025);border:1px solid #202936;letter-spacing:.04em;text-transform:none;font-weight:650}
+.learn-meaning-panel{margin-top:22px;padding:18px 15px 16px;border:1px solid rgba(139,108,255,.16);border-radius:18px;background:linear-gradient(180deg,rgba(139,108,255,.065),rgba(13,18,26,.72));text-align:center}
+.learn-meaning-simple{margin-top:12px;display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;white-space:normal}
+.meaning-chip{display:inline-flex;align-items:center;min-height:40px;padding:8px 13px;border-radius:12px;background:#171d2a;border:1px solid #303a4c;color:#eeeafd;font-size:17px;font-weight:750;line-height:1.25;box-shadow:inset 0 1px rgba(255,255,255,.025)}
+.meaning-chip.primary{background:linear-gradient(135deg,rgba(139,108,255,.18),rgba(93,156,255,.08));border-color:#514a7b;color:#fff}
+.translation-stack{display:flex;flex-direction:column;align-items:center;gap:9px;width:100%}
+.translation-primary{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 16px;border-radius:13px;background:linear-gradient(135deg,rgba(139,108,255,.20),rgba(93,156,255,.10));border:1px solid #514a7b;color:#fff;font-size:18px;font-weight:800;line-height:1.25;box-shadow:inset 0 1px rgba(255,255,255,.03);text-align:center}
+.translation-alts{display:flex;justify-content:center;gap:7px;flex-wrap:wrap}
+.translation-alt{display:inline-flex;align-items:center;min-height:34px;padding:7px 10px;border-radius:10px;background:#141a25;border:1px solid #283244;color:#cbd3df;font-size:13px;font-weight:650;line-height:1.2}
+.translation-meta{margin-top:7px;color:#717c8d;font-size:10px;line-height:1.45;text-align:center}
+.meaning-separator{color:#667184;font-size:12px}
+.learn-meaning-hint{margin-top:10px;color:#7d8796;font-size:10px;line-height:1.5}
+.translation-explainer{margin:12px 0 0;padding:10px 11px;border:1px solid #202936;border-radius:12px;background:rgba(8,12,18,.48);color:#7e899a;font-size:10px;line-height:1.5;text-align:left}
+.translation-explainer b{color:#b5becd}
+
+@media(max-width:600px){
+  .learn-meaning-panel{padding:17px 12px 15px}
+  .meaning-chip{font-size:16px;min-height:38px;padding:8px 11px}
+  .translation-primary{font-size:17px;min-height:44px;padding:10px 13px}.translation-alt{font-size:12px;min-height:32px;padding:7px 9px}
+  .translation-note{font-size:8px}
+}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="brand"><div class="logo" aria-hidden="true">P</div><div class="brand-copy"><h1>Prosolve</h1><p>VOCAB LAB <span>•</span> learn → recall → analyze</p></div></div>
+    <div class="pill" id="datePill"></div>
+  </div>
+
+  <div id="home" class="page active">
+    <div class="grid">
+      <div class="card hero">
+        <div class="eyebrow">Daily mission</div>
+        <h2 id="heroTitle">Mempelajari Vocabulary dengan Lebih Efektif & Bermakna.</h2>
+        <p>Masukkan vocab dari bahasa apa pun. Prosolve mendeteksi bahasa sumber, menerjemahkannya ke bahasa pilihan lu, lalu membantu mengingatnya lewat latihan dua arah.</p>
+        <div class="actions">
+          <button class="btn primary" onclick="openPaste()">+ Paste Vocabulary</button>
+          <button class="btn secondary" onclick="startToday()">Mulai Training</button>
+          <button class="btn ghost" onclick="startReview()">Review</button>
+        </div>
+        <div class="notice"><b>Universal vocabulary.</b> Bahasa sumber terdeteksi otomatis. Pilih bahasa tujuan, lalu Prosolve menjaga terjemahan tetap terpisah dari sinonim dan vocab lain.</div>
+      </div>
+      <div class="card">
+        <div class="section-title"><h3>Progress</h3><span class="muted" id="progressText">0%</span></div>
+        <div class="bar"><i id="progressBar"></i></div>
+        <div class="stats">
+          <button class="stat clickable" type="button" onclick="openProgressList('all')"><strong id="totalWords">0</strong><span>Total words</span><em class="stat-hint">Tekan untuk lihat</em></button>
+          <button class="stat clickable" type="button" onclick="openProgressList('mastered')"><strong id="mastered">0</strong><span>Hafal</span><em class="stat-hint">Tekan untuk lihat</em></button>
+          <button class="stat clickable" type="button" onclick="openProgressList('learning')"><strong id="learning">0</strong><span>Learning</span><em class="stat-hint">Tekan untuk lihat</em></button>
+          <button class="stat clickable" type="button" onclick="openProgressList('weak')"><strong id="weak">0</strong><span>Weak</span><em class="stat-hint">Tekan untuk lihat</em></button>
+        </div>
+        <div class="click-note">Pencet salah satu kotak di atas untuk melihat daftar vocab sesuai statusnya.</div>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top:13px">
+      <div class="card">
+        <div class="section-title"><div><h3>Today's Vocabulary</h3><span class="muted" id="todayCount">0 words</span></div><div class="actions" style="margin-top:0"><button id="todaySelectToggle" class="btn ghost" onclick="toggleWordSelectMode('today')">Pilih</button><button class="btn ghost" onclick="startToday()">Latihan</button><button class="btn danger" onclick="clearTodayWords()">Kosongkan hari ini</button></div></div>
+        <div id="todaySelectionBar" class="selection-bar"><div class="selection-left"><b id="todaySelectedCount">0</b> vocab dipilih</div><div class="selection-actions"><button class="btn secondary" onclick="selectAllWords('today')">Pilih semua</button><button id="deleteSelectedTodayBtn" class="btn danger" onclick="deleteSelectedTodayWords()" disabled>Hapus terpilih</button><button class="btn ghost" onclick="toggleWordSelectMode('today',false)">Batal</button></div></div>
+        <div id="todayList" class="word-list"></div>
+        <div class="hint" style="margin-top:10px">Hapus dari Today's Vocabulary hanya menyembunyikan vocab di daftar hari ini. Vocab tetap tersimpan di folder Prosolve.</div>
+      </div>
+      <div class="card">
+        <div class="section-title"><h3>Weak Words</h3><div class="actions" style="margin-top:0"><button id="weakSelectToggle" class="btn ghost" onclick="toggleWordSelectMode('weak')">Pilih</button><button class="btn ghost" onclick="focusWeak()">Evaluasi</button></div></div>
+        <div id="weakSelectionBar" class="selection-bar"><div class="selection-left"><b id="weakSelectedCount">0</b> vocab dipilih</div><div class="selection-actions"><button class="btn secondary" onclick="selectAllWords('weak')">Pilih semua</button><button id="deleteSelectedWeakBtn" class="btn danger" onclick="deleteSelectedWeakWords()" disabled>Hapus vocab</button><button class="btn ghost" onclick="toggleWordSelectMode('weak',false)">Batal</button></div></div>
+        <div id="weakList" class="word-list"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:13px">
+      <div class="section-title"><div><h3>📚 Vocab Library</h3><span class="muted">Setiap kali lu paste vocab, semuanya otomatis disimpan sebagai satu folder baru.</span></div><div class="library-head-actions"><span class="priority-pill">PER FOLDER</span><button id="librarySelectToggle" class="btn ghost library-select-btn" onclick="toggleLibrarySelectMode()">Pilih</button></div></div>
+      <div class="library-tools"><input id="librarySearch" class="library-search" placeholder="Cari vocab atau terjemahannya…" oninput="renderLibrary()"><button class="btn ghost" onclick="clearLibrarySearch()">Clear</button></div>
+      <div id="librarySelectionBar" class="library-selection-bar">
+        <div class="library-selection-left"><b id="librarySelectedCount">0</b> folder dipilih</div>
+        <div class="library-selection-actions">
+          <button class="btn secondary" onclick="selectAllVisibleSets()">Pilih semua</button>
+          <button id="deleteSelectedSetsBtn" class="btn danger" onclick="deleteSelectedSets()" disabled>Hapus terpilih</button>
+          <button class="btn ghost" onclick="toggleLibrarySelectMode(false)">Batal</button>
+        </div>
+      </div>
+      <div id="libraryList"></div>
+    </div>
+  </div>
+
+  <div id="learn" class="page">
+    <button class="btn secondary back" onclick="showPage('home')">← Home</button>
+    <div class="card learn-shell">
+      <div class="progress-top"><span id="learnLabel">Kenali</span><span id="learnPct">0%</span></div>
+      <div class="bar"><i id="learnBar"></i></div>
+
+      <div class="learn-card-simple">
+        <div class="learn-overline">VOCABULARY</div>
+
+        <div class="learn-section english-section">
+          <div class="learn-context-row">
+            <div id="learnSourceLabel" class="learn-label">SUMBER</div>
+            <span class="auto-badge">AUTO-DETECTED</span>
+          </div>
+          <div id="learnWord" class="learn-word-simple">—</div>
+        </div>
+
+        <div class="learn-meaning-panel">
+          <div class="learn-context-row">
+            <div id="learnTargetLabel" class="learn-label">TERJEMAHAN</div>
+            <span class="translation-note">natural</span>
+          </div>
+          <div id="learnMeaning" class="learn-meaning-simple">—</div>
+          <div id="learnMeaningHint" class="learn-meaning-hint" style="display:none"></div>
+        </div>
+
+        <div class="pronunciation-card-simple">
+          <div class="pronunciation-copy-simple">
+            <div class="learn-label">CARA BACA</div>
+            <div id="learnPhonetic" class="learn-phonetic-simple">Mencari cara baca…</div>
+          </div>
+          <button id="pronounceBtn" class="pronounce-btn-simple" type="button" onclick="speakCurrentWord()">🔊 Dengarkan</button>
+        </div>
+      </div>
+
+      <div class="learn-actions actions">
+        <button class="btn secondary" onclick="prevLearn()">← Sebelumnya</button>
+        <button class="btn primary" onclick="nextLearn()" id="nextLearnBtn">Lanjut →</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="train" class="page">
+    <button class="btn secondary back" onclick="showPage('home')">← Home</button>
+    <div class="card">
+      <div class="quiz-head"><div><div class="eyebrow" id="modeEyebrow">ENGLISH → INDONESIA</div><div class="muted" id="quizCounter">1 / 10</div></div><div class="tag yellow" id="quizType">NEW</div></div>
+      <div class="direction-note" id="directionNote">Lihat vocab English di bawah, lalu ketik arti Indonesianya sendiri. Tidak ada pilihan ganda.</div>
+      <div class="question" id="question">Question</div>
+      <div id="answerArea"></div>
+      <div id="result" class="result" style="display:none"></div>
+      <div class="actions"><button class="btn primary" id="nextQuizBtn" style="display:none" onclick="nextQuiz()">Next →</button></div>
+    </div>
+  </div>
+
+  <div id="quizMobileBar" class="quiz-mobile-bar" aria-live="polite">
+    <button class="btn secondary" id="quizMobileClearBtn" type="button" onclick="clearQuizAnswer()">Clear</button>
+    <button class="btn primary" id="quizMobileActionBtn" type="button" onclick="submitOrNextMobile()">Submit</button>
+  </div>
+
+  <div id="analysis" class="page">
+    <button class="btn secondary back" onclick="showPage('home')">← Home</button>
+    <div class="card">
+      <div class="eyebrow">Session analysis</div>
+      <h2 style="margin:7px 0 8px" id="analysisTitle">Hasil latihan</h2>
+      <p class="muted" id="analysisSubtitle">Analisis berdasarkan dua arah recall pada sesi ini.</p>
+      <div class="stats" style="margin-top:14px">
+        <div class="stat"><strong id="sumCorrect">0</strong><span>Benar</span></div>
+        <div class="stat"><strong id="sumWrong">0</strong><span>Salah</span></div>
+        <div class="stat"><strong id="sumWeak">0</strong><span>Perlu evaluasi</span></div>
+        <div class="stat"><strong id="sumMastered">0</strong><span>Hafal</span></div>
+      </div>
+    </div>
+    <div class="grid" style="margin-top:13px">
+      <div class="card"><div class="section-title"><h3>🔴 Masih lemah</h3><span class="muted" id="weakCountText"></span></div><div id="analysisWeak" class="word-list"></div></div>
+      <div class="card"><div class="section-title"><h3>🟢 Sudah hafal</h3><span class="muted" id="masteredCountText"></span></div><div id="analysisMastered" class="word-list"></div></div>
+    </div>
+    <div class="actions"><button class="btn primary" onclick="openEvaluation()">Lihat Bahan Evaluasi →</button><button class="btn secondary" onclick="showPage('home')">Selesai</button></div>
+  </div>
+
+  <div id="evaluation" class="page">
+    <button class="btn secondary back" onclick="showPage('analysis')">← Hasil</button>
+    <div class="card">
+      <div class="eyebrow">Priority evaluation</div>
+      <h2 style="margin:7px 0 8px">Bahan Evaluasi Vocab yang Masih Kurang</h2>
+      <p class="muted">App menampilkan yang salah atau belum kuat terlebih dahulu. Pelajari bagian ini sebelum mengulang test.</p>
+      <div id="evalList" class="eval-grid" style="margin-top:14px"></div>
+      <div class="divider"></div>
+      <div id="evalSummary" class="summary-box"></div>
+      <div class="actions"><button class="btn primary" onclick="repeatWeakTest()">Ulangi Test Vocab Lemah</button><button class="btn secondary" onclick="showPage('analysis')">Kembali ke Hasil</button></div>
+    </div>
+  </div>
+
+  <div id="review" class="page">
+    <button class="btn secondary back" onclick="showPage('home')">← Home</button>
+    <div class="card">
+      <div class="section-title"><div><h3>Smart Review</h3><span class="muted">Kata yang belum kuat diprioritaskan.</span></div><span class="pill" id="reviewCount">0 words</span></div>
+      <div id="reviewList" class="word-list"></div>
+      <div class="actions"><button class="btn primary" onclick="startReview()">Start Review</button><button class="btn secondary" onclick="showPage('home')">Back</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="progressModal">
+  <div class="modal-box">
+    <div class="modal-top"><div><h3 id="progressModalTitle">Vocab</h3><div class="muted" id="progressModalSubtitle">Daftar vocab berdasarkan status.</div></div><button class="close" onclick="closeProgressList()">×</button></div>
+    <div class="modal-tab-row">
+      <button class="modal-tab active" id="tab-all" onclick="openProgressList('all')">Semua</button>
+      <button class="modal-tab" id="tab-mastered" onclick="openProgressList('mastered')">Hafal</button>
+      <button class="modal-tab" id="tab-learning" onclick="openProgressList('learning')">Learning</button>
+      <button class="modal-tab" id="tab-weak" onclick="openProgressList('weak')">Weak</button>
+    </div>
+    <div id="progressModalList" class="progress-modal-list"></div>
+  </div>
+</div>
+
+<div class="modal" id="pasteModal">
+  <div class="modal-box">
+    <div class="modal-top"><div><h3>Paste Vocabulary</h3><div class="muted" style="margin-top:4px">Semua bahasa • sumber otomatis terdeteksi</div></div><button class="close" onclick="closePaste()">×</button></div>
+    <p class="muted" style="margin:12px 0 10px">Tempel kata atau frasa. Bahasa sumber dideteksi otomatis. Hasil akan ditampilkan sebagai <b>terjemahan</b>, bukan daftar sinonim yang membingungkan.</p>
+    <div class="lang-row">
+      <label class="lang-field"><span>Terjemahkan ke</span><select id="targetLang">
+        <option value="id">🇮🇩 Indonesia</option><option value="en">🇬🇧 English</option><option value="ja">🇯🇵 日本語</option><option value="ko">🇰🇷 한국어</option><option value="zh-CN">🇨🇳 中文</option><option value="es">🇪🇸 Español</option><option value="fr">🇫🇷 Français</option><option value="de">🇩🇪 Deutsch</option><option value="ar">🇸🇦 العربية</option><option value="pt">🇵🇹 Português</option><option value="hi">🇮🇳 हिन्दी</option><option value="tr">🇹🇷 Türkçe</option><option value="ru">🇷🇺 Русский</option><option value="th">🇹🇭 ไทย</option><option value="vi">🇻🇳 Tiếng Việt</option><option value="ms">🇲🇾 Melayu</option><option value="it">🇮🇹 Italiano</option><option value="nl">🇳🇱 Nederlands</option><option value="pl">🇵🇱 Polski</option><option value="uk">🇺🇦 Українська</option>
+      </select></label>
+      <div class="lang-auto"><span>Sumber</span><strong>Auto-detect</strong></div>
+    </div>
+    <textarea id="pasteInput" class="pastebox" placeholder="currently
+persuade
+fall behind
+rainfall
+opposed
+convince
+toward
+decline
+maintain
+significant"></textarea>
+    <div class="hint">Satu vocab per baris. Format <b>vocab = terjemahan</b> tetap didukung. Lebih dari satu arti bisa ditulis dengan <b>/</b>.</div>
+    <div id="prep" class="prep"></div>
+    <div class="actions"><button class="btn secondary" onclick="closePaste()">Batal</button><button class="btn primary" id="prepareBtn" onclick="prepareVocab()">Prepare & Start →</button></div>
+  </div>
+</div>
+
+<script>
+const KEY='tka_vocab_trainer_v07';
+const OLD_KEYS=['tka_vocab_trainer_v06','tka_vocab_trainer_v05','tka_vocab_trainer_v04','tka_vocab_trainer_v03','tka_vocab_trainer_v02','tka_vocab_trainer_v01'];
+let db=loadDB();
+let todayKey=localDateKey();
+let learnState={idx:0,list:[],after:'daily'};
+let quizState={idx:0,list:[],mode:'source-target',purpose:'daily',session:{}};
+let lastAnalysis={weak:[],mastered:[],all:[],correct:0,wrong:0};
+let librarySelectMode=false;
+let selectedSetIds=new Set();
+let todaySelectMode=false, weakSelectMode=false;
+let selectedTodayIds=new Set(), selectedWeakIds=new Set();
+
+function loadDB(){
+  let raw=localStorage.getItem(KEY);
+  if(!raw){for(const k of OLD_KEYS){raw=localStorage.getItem(k);if(raw)break}}
+  let d=raw?JSON.parse(raw):{words:[],sessions:{},sets:[]};
+  d.words=(d.words||[]).map(w=>{
+    if(sameWord(w.word,w.meaning)) w.meaning='';
+    w.phonetic=w.phonetic||'';w.audio=w.audio||'';
+    const m=Number.isFinite(w.mastery)?w.mastery:(w.mastery||0);
+    const a=Number.isFinite(w.enIdScore)?w.enIdScore:m;
+    const b=Number.isFinite(w.idEnScore)?w.idEnScore:m;
+    return {...w,enIdScore:a,idEnScore:b,enIdCorrect:w.enIdCorrect||0,enIdWrong:w.enIdWrong||0,idEnCorrect:w.idEnCorrect||0,idEnWrong:w.idEnWrong||0};
+  });
+  d.sets=Array.isArray(d.sets)?d.sets:[];
+  d.daily=d.daily&&Array.isArray(d.daily.wordIds)?d.daily:{wordIds:[],updatedDate:''};
+  migrateSets(d);
+  return d;
+}
+function migrateSets(d){
+  let changed=false;
+  const validIds=new Set(d.words.map(w=>w.id));
+  d.daily=d.daily&&Array.isArray(d.daily.wordIds)?{...d.daily,wordIds:d.daily.wordIds.filter(id=>validIds.has(id))}:{wordIds:[],updatedDate:''};
+  d.sets=d.sets.filter(set=>Array.isArray(set.wordIds)&&set.wordIds.some(id=>validIds.has(id))).map(set=>({...set,wordIds:set.wordIds.filter(id=>validIds.has(id))}));
+  if(!d.sets.length&&d.words.length){
+    for(let i=0;i<d.words.length;i+=10){
+      const chunk=d.words.slice(i,i+10);
+      d.sets.push({id:'set-'+(d.sets.length+1),number:d.sets.length+1,createdDate:chunk[0]?.addedDate||localDateKey(),wordIds:chunk.map(w=>w.id)});
+    }
+    changed=true;
+  }
+  const next=Math.max(0,...d.sets.map(s=>Number(s.number)||0))+1;
+  d.nextSetNumber=Math.max(Number(d.nextSetNumber)||1,next);
+  if(changed){localStorage.setItem(KEY,JSON.stringify(d))}
+}
+function localDateKey(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function save(){localStorage.setItem(KEY,JSON.stringify(db));render()}
+function esc(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function fmtDate(){return new Intl.DateTimeFormat('id-ID',{day:'numeric',month:'short',year:'numeric'}).format(new Date())}
+function scoreFor(w){return Math.round(((w.enIdScore||0)+(w.idEnScore||0))/2)}
+function mastery(w){return Math.max(0,Math.min(100,scoreFor(w)))}
+function status(w){const a=w.enIdScore||0,b=w.idEnScore||0;if(a>=80&&b>=80)return 'Hafal';if(a<=35||b<=35)return 'Weak';return 'Learning'}
+function statusClass(w){const s=status(w);return s==='Hafal'?'green':s==='Weak'?'red':'yellow'}
+function wordsToday(){return currentDailySetWords()}
+function wordHTML(w,showScore=false,withDelete=false){return `<div class="word"><div style="min-width:0"><b>${esc(w.word)}</b><small>${esc(w.meaning||'Terjemahan belum tersedia')}</small></div><div style="display:flex;align-items:center;gap:7px"><span class="tag ${statusClass(w)}">${showScore?mastery(w)+'% ':''}${status(w)}</span>${withDelete?`<button class="btn danger" style="padding:6px 9px;line-height:1" title="Hapus vocab ini" aria-label="Hapus ${esc(w.word)}" onclick="deleteTodayWord('${esc(w.id)}')">×</button>`:''}</div></div>`}
+function render(){
+  document.getElementById('datePill').textContent=fmtDate();
+  const total=db.words.length, mastered=db.words.filter(w=>status(w)==='Hafal').length, weak=db.words.filter(w=>status(w)==='Weak').length, learning=total-mastered-weak;
+  document.getElementById('totalWords').textContent=total;document.getElementById('mastered').textContent=mastered;document.getElementById('weak').textContent=weak;document.getElementById('learning').textContent=learning;
+  const pct=total?Math.round(mastered/total*100):0;document.getElementById('progressText').textContent=pct+'%';document.getElementById('progressBar').style.width=pct+'%';
+  const t=currentDailySetWords();document.getElementById('todayCount').textContent=t.length+' words';
+  const todayBox=document.getElementById('todayList');
+  todayBox.innerHTML=t.length?t.map(w=>selectableWordHTML(w,'today',false)).join(''):"<div class='empty'>Belum ada Today's Vocabulary.<br>Paste berapa pun jumlah kata untuk membuat folder baru.</div>";
+  updateWordSelectionUI('today',t);
+  const weakWords=[...db.words].filter(w=>status(w)==='Weak').sort((a,b)=>mastery(a)-mastery(b)).slice(0,5);
+  const weakBox=document.getElementById('weakList');
+  weakBox.innerHTML=weakWords.length?weakWords.map(w=>selectableWordHTML(w,'weak',true)).join(''):'<div class="empty">Belum ada vocab lemah.</div>';
+  updateWordSelectionUI('weak',weakWords);
+  const review=[...db.words].filter(w=>status(w)!=='Hafal').sort((a,b)=>(a.nextReview||0)-(b.nextReview||0)).slice(0,20);
+  document.getElementById('reviewCount').textContent=review.length+' words';document.getElementById('reviewList').innerHTML=review.length?review.map(w=>wordHTML(w,true)).join(''):'<div class="empty">Belum ada review yang perlu dikerjakan.</div>';
+  document.getElementById('heroTitle').textContent='Mempelajari Vocabulary dengan Lebih Efektif & Bermakna.';
+  renderLibrary();
+}
+function currentDailySet(){return null}
+function currentDailySetWords(){
+  const d=db.daily&&Array.isArray(db.daily.wordIds)?db.daily:null;
+  if(!d)return [];
+  return d.wordIds.map(id=>db.words.find(w=>w.id===id)).filter(Boolean);
+}
+function showPage(id){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');if(id!=='train')hideQuizMobileBar();window.scrollTo(0,0)}
+function selectableWordHTML(w,type,showScore=false){
+  const mode=type==='today'?todaySelectMode:weakSelectMode;
+  const selected=type==='today'?selectedTodayIds.has(w.id):selectedWeakIds.has(w.id);
+  const marker=mode?`<span class="word-select-marker ${selected?'checked':''}">${selected?'✓':''}</span>`:'';
+  const deleteBtn=(!mode&&type==='today')?`<button class="btn danger" style="padding:6px 9px;line-height:1" title="Hapus dari Today's Vocabulary" onclick="event.stopPropagation();deleteTodayWord('${esc(w.id)}')">×</button>`:'';
+  return `<div class="word ${mode?'selectable':''} ${selected?'selected':''}" ${mode?`onclick="toggleWordSelection('${type}','${esc(w.id)}')"`:''}><div style="display:flex;align-items:center;gap:9px;min-width:0">${marker}<div style="min-width:0"><b>${esc(w.word)}</b><small>${esc(w.meaning||'Terjemahan belum tersedia')}</small></div></div><div style="display:flex;align-items:center;gap:7px"><span class="tag ${statusClass(w)}">${showScore?mastery(w)+'% ':''}${status(w)}</span>${deleteBtn}</div></div>`;
+}
+function updateWordSelectionUI(type,words){
+  const isToday=type==='today', mode=isToday?todaySelectMode:weakSelectMode;
+  const bar=document.getElementById(isToday?'todaySelectionBar':'weakSelectionBar');
+  const toggle=document.getElementById(isToday?'todaySelectToggle':'weakSelectToggle');
+  const count=document.getElementById(isToday?'todaySelectedCount':'weakSelectedCount');
+  const del=document.getElementById(isToday?'deleteSelectedTodayBtn':'deleteSelectedWeakBtn');
+  const selected=isToday?selectedTodayIds:selectedWeakIds;
+  if(bar)bar.classList.toggle('show',mode);
+  if(toggle){toggle.textContent=mode?'Selesai':'Pilih';toggle.classList.toggle('primary',mode);toggle.classList.toggle('ghost',!mode)}
+  if(count)count.textContent=selected.size;
+  if(del){del.disabled=selected.size===0;del.textContent=selected.size?(isToday?`Hapus terpilih (${selected.size})`:`Hapus vocab (${selected.size})`):(isToday?'Hapus terpilih':'Hapus vocab')}
+}
+function toggleWordSelectMode(type,force){
+  const isToday=type==='today';
+  const mode=typeof force==='boolean'?force:!(isToday?todaySelectMode:weakSelectMode);
+  if(isToday){todaySelectMode=mode;if(!mode)selectedTodayIds.clear()}else{weakSelectMode=mode;if(!mode)selectedWeakIds.clear()}
+  render();
+}
+function toggleWordSelection(type,id){
+  const set=type==='today'?selectedTodayIds:selectedWeakIds;
+  if(set.has(id))set.delete(id);else set.add(id);
+  render();
+}
+function selectAllWords(type){
+  const words=type==='today'?currentDailySetWords():[...db.words].filter(w=>status(w)==='Weak').sort((a,b)=>mastery(a)-mastery(b)).slice(0,5);
+  const set=type==='today'?selectedTodayIds:selectedWeakIds;
+  words.forEach(w=>set.add(w.id));render();
+}
+function deleteSelectedTodayWords(){
+  if(!todaySelectMode||!selectedTodayIds.size)return;
+  const ids=new Set(selectedTodayIds);const count=ids.size;
+  if(!confirm(`Hapus ${count} vocab dari Today's Vocabulary?\n\nFolder Prosolve Set dan progress vocab tetap aman.`))return;
+  db.daily.wordIds=(db.daily?.wordIds||[]).filter(id=>!ids.has(id));
+  db.daily.updatedDate=todayKey;selectedTodayIds.clear();todaySelectMode=false;save();
+}
+function deleteSelectedWeakWords(){
+  if(!weakSelectMode||!selectedWeakIds.size)return;
+  const ids=new Set(selectedWeakIds);const count=ids.size;
+  if(!confirm(`Hapus permanen ${count} vocab lemah?\n\nVocab akan dihapus dari semua folder, Today's Vocabulary, dan progress.`))return;
+  db.words=db.words.filter(w=>!ids.has(w.id));
+  db.sets=db.sets.map(set=>({...set,wordIds:(set.wordIds||[]).filter(id=>!ids.has(id))})).filter(set=>set.wordIds.length);
+  if(db.daily)db.daily.wordIds=db.daily.wordIds.filter(id=>!ids.has(id));
+  selectedWeakIds.clear();weakSelectMode=false;save();
+}
+function progressLabel(filter){return filter==='all'?'Semua Vocab':filter==='mastered'?'Vocab Hafal':filter==='learning'?'Vocab Learning':'Vocab Weak'}
+function progressWords(filter){
+  const words=[...db.words];
+  if(filter==='mastered')return words.filter(w=>status(w)==='Hafal');
+  if(filter==='learning')return words.filter(w=>status(w)==='Learning');
+  if(filter==='weak')return words.filter(w=>status(w)==='Weak');
+  return words;
+}
+function openProgressList(filter='all'){
+  const modal=document.getElementById('progressModal');
+  const list=document.getElementById('progressModalList');
+  const words=progressWords(filter).sort((a,b)=>a.word.localeCompare(b.word));
+  document.getElementById('progressModalTitle').textContent=progressLabel(filter);
+  document.getElementById('progressModalSubtitle').textContent=`${words.length} vocab • klik tombol di daftar untuk langsung mengecek vocab tersebut.`;
+  ['all','mastered','learning','weak'].forEach(k=>document.getElementById('tab-'+k)?.classList.toggle('active',k===filter));
+  list.innerHTML=words.length?words.map(w=>`<div class="progress-modal-item"><div class="progress-modal-main"><b>${esc(w.word)}</b><small>${esc(w.meaning||w.definition||'Terjemahan belum tersedia')}</small></div><div class="progress-modal-score"><span class="tag ${statusClass(w)}">${mastery(w)}% • ${status(w)}</span><div style="margin-top:6px;text-align:right"><button class="btn secondary" style="padding:6px 9px" onclick="checkProgressWord('${esc(w.id)}')">Cek</button></div></div></div>`).join(''):'<div class="progress-modal-empty">Belum ada vocab di kategori ini.</div>';
+  modal.classList.add('open');
+}
+function closeProgressList(){document.getElementById('progressModal').classList.remove('open')}
+function checkProgressWord(wordId){closeProgressList();checkWeakWord(wordId)}
+function setWords(set){return (set.wordIds||[]).map(id=>db.words.find(w=>w.id===id)).filter(Boolean)}
+function setWeakCount(set){return setWords(set).filter(w=>status(w)==='Weak').length}
+function startSetEvaluation(setId){const set=db.sets.find(s=>s.id===setId);if(!set)return;const words=setWords(set);if(!words.length)return;const weak=words.filter(w=>status(w)==='Weak').sort((a,b)=>mastery(a)-mastery(b));const list=weak.length?weak:words.sort((a,b)=>mastery(a)-mastery(b));startList(list,'evaluation')}
+function getVisibleLibrarySetIds(){
+  const q=(document.getElementById('librarySearch')?.value||'').trim().toLowerCase();
+  const sets=[...db.sets].sort((a,b)=>(Number(b.number)||0)-(Number(a.number)||0));
+  if(!q)return sets.map(s=>s.id);
+  const ids=[];
+  for(const set of sets){
+    const words=setWords(set);
+    const setTitle=`prosolve set ${set.number}`.toLowerCase();
+    const setNumber=String(set.number||'').toLowerCase();
+    const setMatches=setTitle.includes(q)||setNumber===q||setNumber.includes(q);
+    const wordMatches=words.some(w=>`${w.word} ${w.meaning||''} ${w.definition||''}`.toLowerCase().includes(q));
+    if(setMatches||wordMatches)ids.push(set.id);
+  }
+  return ids;
+}
+function updateLibrarySelectionUI(){
+  const bar=document.getElementById('librarySelectionBar');
+  const toggle=document.getElementById('librarySelectToggle');
+  const count=document.getElementById('librarySelectedCount');
+  const del=document.getElementById('deleteSelectedSetsBtn');
+  if(!bar||!toggle)return;
+  bar.classList.toggle('show',librarySelectMode);
+  toggle.textContent=librarySelectMode?'Selesai':'Pilih';
+  toggle.classList.toggle('primary',librarySelectMode);
+  toggle.classList.toggle('ghost',!librarySelectMode);
+  if(count)count.textContent=selectedSetIds.size;
+  if(del){del.disabled=selectedSetIds.size===0;del.textContent=selectedSetIds.size?`Hapus terpilih (${selectedSetIds.size})`:'Hapus terpilih';}
+}
+function toggleLibrarySelectMode(force){
+  librarySelectMode=typeof force==='boolean'?force:!librarySelectMode;
+  if(!librarySelectMode)selectedSetIds.clear();
+  renderLibrary();
+}
+function toggleSetSelection(setId){
+  if(!librarySelectMode)return;
+  if(selectedSetIds.has(setId))selectedSetIds.delete(setId);else selectedSetIds.add(setId);
+  renderLibrary();
+}
+function selectAllVisibleSets(){
+  if(!librarySelectMode)return;
+  getVisibleLibrarySetIds().forEach(id=>selectedSetIds.add(id));
+  renderLibrary();
+}
+function handleSetSummarySelect(event,setId){
+  if(!librarySelectMode)return;
+  event.preventDefault();
+  event.stopPropagation();
+  toggleSetSelection(setId);
+}
+function deleteSelectedSets(){
+  if(!librarySelectMode||!selectedSetIds.size)return;
+  const sets=db.sets.filter(s=>selectedSetIds.has(s.id));
+  if(!sets.length){selectedSetIds.clear();renderLibrary();return;}
+  const wordCount=sets.reduce((n,s)=>n+setWords(s).length,0);
+  const label=sets.length===1?`Prosolve Set ${sets[0].number}`:`${sets.length} folder`;
+  if(!confirm(`Hapus ${label} beserta isi yang hanya dipakai di folder terpilih?\n\nVocab yang masih dipakai folder lain atau Today's Vocabulary tetap aman.`))return;
+  const idsToDelete=new Set(sets.flatMap(s=>s.wordIds||[]));
+  const remainingSets=db.sets.filter(s=>!selectedSetIds.has(s.id));
+  const stillUsed=new Set(remainingSets.flatMap(s=>s.wordIds||[]));
+  const dailyUsed=new Set(db.daily?.wordIds||[]);
+  db.words=db.words.filter(w=>!idsToDelete.has(w.id)||stillUsed.has(w.id)||dailyUsed.has(w.id));
+  db.sets=remainingSets;
+  if(db.daily)db.daily.wordIds=db.daily.wordIds.filter(id=>db.words.some(w=>w.id===id));
+  selectedSetIds.clear();
+  librarySelectMode=false;
+  save();
+}
+function renderLibrary(){
+  const box=document.getElementById('libraryList');if(!box)return;
+  // Remove selections that no longer exist.
+  const validIds=new Set(db.sets.map(s=>s.id));
+  selectedSetIds.forEach(id=>{if(!validIds.has(id))selectedSetIds.delete(id)});
+  updateLibrarySelectionUI();
+  const q=(document.getElementById('librarySearch')?.value||'').trim().toLowerCase();
+  const sets=[...db.sets].sort((a,b)=>(Number(b.number)||0)-(Number(a.number)||0));
+  if(!sets.length){box.innerHTML='<div class="search-empty">Belum ada folder. Paste vocab berapa pun untuk membuat Prosolve Set 1.</div>';return}
+  const matched=[];
+  for(const set of sets){
+    const words=setWords(set);
+    const setTitle=`prosolve set ${set.number}`.toLowerCase();
+    const setNumber=String(set.number||'').toLowerCase();
+    const setMatches=!q || setTitle.includes(q) || setNumber===q || setNumber.includes(q);
+    const filtered=words.filter(w=>{
+      if(!q)return true;
+      return `${w.word} ${w.meaning||''} ${w.definition||''}`.toLowerCase().includes(q);
+    });
+    if(setMatches)matched.push({set,words,filtered:words});
+    else if(filtered.length)matched.push({set,words,filtered});
+  }
+  if(!matched.length){box.innerHTML='<div class="search-empty">Belum ada vocab/folder yang cocok dengan pencarian lu.</div>';return}
+  box.innerHTML=matched.map(({set,words,filtered})=>{
+    const weakCount=words.filter(w=>status(w)==='Weak').length;
+    const setTitle=`Prosolve Set ${set.number}`;
+    const setTitleMatches=!q || setTitle.toLowerCase().includes(q) || String(set.number||'').toLowerCase().includes(q);
+    const showWords=!q || setTitleMatches ? words : filtered;
+    const date=set.createdDate||'-';
+    const matchMeta=q?(setTitleMatches?' • folder cocok':` • ${filtered.length} cocok`):'';
+    const selected=selectedSetIds.has(set.id);
+    const selectMarker=librarySelectMode?`<span class="set-select-marker ${selected?'checked':''}" aria-hidden="true">${selected?'✓':''}</span>`:'';
+    return `<details class="set-card ${librarySelectMode?'select-mode':''} ${selected?'selected':''}">
+      <summary class="set-summary" onclick="handleSetSummarySelect(event,'${esc(set.id)}')">
+        <div class="set-summary-left-wrap">${selectMarker}<div class="set-summary-left"><div class="set-title">${esc(setTitle)}</div><div class="set-meta">${words.length} vocab • ${esc(date)}${matchMeta}</div></div></div>
+        <div class="set-summary-right"><span class="set-weak-pill">${weakCount} weak</span></div>
+      </summary>
+      <div class="set-body">
+        <div class="set-words">${showWords.map(w=>`<div class="set-word"><div class="set-word-main"><b>${esc(w.word)}</b><small>${esc(w.meaning||w.definition||'Terjemahan belum tersedia')}</small></div><span class="tag ${statusClass(w)}">${mastery(w)}% • ${status(w)}</span></div>`).join('')}</div>
+        <div class="set-actions">
+          <button class="btn secondary set-train-btn" onclick="startSetTraining('${esc(set.id)}')">Latihan</button>
+          <button class="btn primary set-eval-btn" onclick="startSetEvaluation('${esc(set.id)}')">Evaluasi folder</button>
+          <button class="btn danger set-delete-btn" onclick="deleteSet('${esc(set.id)}')">Hapus folder</button>
+        </div>
+      </div>
+    </details>`;
+  }).join('');
+  updateLibrarySelectionUI();
+}
+function startSetTraining(setId){
+  const set=db.sets.find(s=>s.id===setId);if(!set)return;
+  const words=setWords(set);if(!words.length)return;
+  startList(words,'daily');
+}
+
+function clearLibrarySearch(){const el=document.getElementById('librarySearch');if(el){el.value='';renderLibrary();el.focus()}}
+function startSetEvaluation(setId){const set=db.sets.find(s=>s.id===setId);if(!set)return;const words=setWords(set);if(!words.length)return;const weak=words.filter(w=>status(w)==='Weak').sort((a,b)=>mastery(a)-mastery(b));const list=weak.length?weak:words.sort((a,b)=>mastery(a)-mastery(b));startList(list,'evaluation')}
+function startReview(){const now=Date.now();let list=[...db.words].filter(w=>status(w)!=='Hafal'&&(w.nextReview||0)<=now).sort((a,b)=>mastery(a)-mastery(b)).slice(0,10);if(!list.length)list=[...db.words].filter(w=>status(w)!=='Hafal').sort((a,b)=>mastery(a)-mastery(b)).slice(0,10);if(!list.length){alert('Belum ada vocab yang perlu direview.');return}startList(list,'evaluation')}
+function deleteTodayWord(wordId){
+  // IMPORTANT: Today's Vocabulary hanya menyimpan referensi ID.
+  // Menghapus dari sini TIDAK BOLEH menyentuh db.words atau db.sets.
+  const d=db.daily;
+  if(!d||!Array.isArray(d.wordIds))return;
+  const w=db.words.find(x=>x.id===wordId);
+  if(!w||!d.wordIds.includes(wordId))return;
+  if(!confirm(`Hapus "${w.word}" dari Today's Vocabulary?\n\nFolder Prosolve Set dan progress vocab ini tetap aman.`))return;
+  d.wordIds=d.wordIds.filter(id=>id!==wordId);
+  d.updatedDate=todayKey;
+  // Jangan pernah memfilter/menghapus db.words di fungsi ini.
+  localStorage.setItem(KEY,JSON.stringify(db));
+  render();
+}
+function clearTodayWords(){
+  // Clear hanya daftar Today's Vocabulary. Folder tetap utuh.
+  const d=db.daily;
+  const visible=currentDailySetWords();
+  if(!d||!visible.length){alert("Today's Vocabulary sudah kosong. Folder tetap aman.");return}
+  if(!confirm(`Hapus ${visible.length} vocab dari Today's Vocabulary?\n\nFolder Prosolve Set dan progress semua vocab tetap aman.`))return;
+  d.wordIds=[];
+  d.updatedDate=todayKey;
+  // Jangan pernah menghapus isi db.words/db.sets di sini.
+  localStorage.setItem(KEY,JSON.stringify(db));
+  render();
+}
+function deleteSet(setId){
+  const set=db.sets.find(s=>s.id===setId);
+  if(!set)return;
+  const words=setWords(set);
+  if(!confirm(`Hapus Prosolve Set ${set.number} beserta ${words.length} vocab yang hanya dipakai di folder ini?`))return;
+  const ids=new Set(set.wordIds||[]);
+  const stillUsed=new Set(db.sets.filter(s=>s.id!==set.id).flatMap(s=>s.wordIds||[]));
+  const dailyUsed=new Set(db.daily?.wordIds||[]);
+  db.words=db.words.filter(w=>!ids.has(w.id)||stillUsed.has(w.id)||dailyUsed.has(w.id));
+  db.sets=db.sets.filter(s=>s.id!==set.id);
+  if(db.daily)db.daily.wordIds=db.daily.wordIds.filter(id=>db.words.some(w=>w.id===id));
+  selectedSetIds.delete(setId);
+  save();
+}
+function deleteTodaySet(){
+  // Legacy alias kept for compatibility: today's clear action must never delete the folder.
+  clearTodayWords();
+}
+
+function openPaste(){document.getElementById('pasteModal').classList.add('open');document.getElementById('prep').classList.remove('show');document.getElementById('prep').innerHTML='';document.getElementById('pasteInput').focus()}
+function closePaste(){document.getElementById('pasteModal').classList.remove('open')}
+function parseWords(raw){
+  const seen=new Set(), out=[];
+  for(const rawItem of String(raw||'').split(/\n+/)){
+    let x=rawItem.trim().replace(/^\d+[.)]\s*/,'').replace(/^[•\-]\s*/, '').replace(/\s+/g,' ');
+    if(!x) continue;
+    let meaningHint='';
+    // Support: word, word = meaning, or word | meaning.
+    const sep=x.match(/^(.+?)\s*(?:\||=)\s*(.+)$/);
+    if(sep){x=sep[1].trim();meaningHint=sep[2].trim()}
+    x=x.trim();
+    if(!x) continue;
+    const key=x.toLowerCase();
+    if(!seen.has(key)){seen.add(key);out.push({word:x,meaningHint})}
+  }
+  return out;
+}
+function cleanStoredWords(){
+  // Migrate old word = meaning data and remove placeholder text accidentally saved as vocab.
+  let changed=false;
+  const bad=/^(ini versi tanpa terjemahan:?|arti belum ditemukan.*|cara baca belum tersedia.*|memuat cara baca.*|contoh kalimat belum tersedia\.?|english *→ *indonesian *→ *pronunciation)$/i;
+  const before=db.words.length;
+  db.words=db.words.filter(w=>!bad.test(String(w.word||'').trim()));
+  if(db.words.length!==before){
+    const valid=new Set(db.words.map(w=>w.id));
+    db.daily.wordIds=(db.daily.wordIds||[]).filter(id=>valid.has(id));
+    db.sets=db.sets.map(set=>({...set,wordIds:(set.wordIds||[]).filter(id=>valid.has(id))})).filter(set=>set.wordIds.length);
+    changed=true;
+  }
+  for(const w of db.words){
+    const eq=String(w.word||'').match(/^(.+?)\s*=\s*(.+)$/);
+    if(eq){
+      w.word=eq[1].trim();
+      if(!w.meaning || /^Arti belum/i.test(w.meaning)) w.meaning=eq[2].trim();
+      changed=true;
+    }
+    const cleanedMeaning=cleanText(w.meaning);
+    if(cleanedMeaning!==String(w.meaning||'')){w.meaning=cleanedMeaning;changed=true}
+    if(/^Arti belum ditemukan/i.test(String(w.meaning||''))||/^Terjemahan belum ditemukan/i.test(String(w.meaning||''))) {w.meaning='';changed=true}
+    if(/^Cara baca belum tersedia/i.test(String(w.phonetic||''))||/^Mencari cara baca/i.test(String(w.phonetic||''))){w.phonetic='';changed=true}
+    w.sourceLang=normalizeLanguageCode(w.sourceLang)||'en';w.targetLang=normalizeLanguageCode(w.targetLang)||'id';w.sourceName=w.sourceName||languageName(w.sourceLang);w.targetName=w.targetName||languageName(w.targetLang);w.meaning=formatMeanings(w.meaning);
+    // Repair known bad saved translations immediately, so the wrong meaning
+    // never flashes on screen before the async refresh finishes.
+    const trusted=trustedTranslationsFor(w.word,w.sourceLang,w.targetLang);
+    if(trusted.length && meaningNeedsRepair(w)){w.meaning=formatMeanings(trusted);changed=true}
+  }
+  if(changed) localStorage.setItem(KEY,JSON.stringify(db));
+}
+
+function setPrep(rows){const box=document.getElementById('prep');box.classList.add('show');box.innerHTML=rows.map(x=>`<div class="prep-row"><span class="prep-name">${esc(x.word)}</span><span class="prep-state" id="p-${x.key}">${esc(x.state)}</span></div>`).join('')}
+function updatePrep(key,state){const el=document.getElementById('p-'+key);if(el)el.textContent=state}
+function slug(s){return btoa(unescape(encodeURIComponent(s))).replace(/[^a-zA-Z0-9]/g,'').slice(0,30)||Math.random().toString(36).slice(2,8)}
+function cleanText(raw){
+  let s=String(raw??'').replace(/<\/?[a-z][^>]*>/gi,' ');
+  const ta=document.createElement('textarea');ta.innerHTML=s;
+  return ta.value.replace(/\s+/g,' ').trim();
+}
+function languageName(code){
+  const names={id:'Indonesia',en:'English',ja:'Jepang',ko:'Korea','zh-CN':'Mandarin',zh:'Mandarin',es:'Spanyol',fr:'Prancis',de:'Jerman',ar:'Arab',pt:'Portugis',hi:'Hindi',tr:'Turki',ru:'Rusia',th:'Thai',vi:'Vietnam',ms:'Melayu',it:'Italia',nl:'Belanda',pl:'Polandia',uk:'Ukraina'};
+  return names[code]||String(code||'').toUpperCase();
+}
+function normalizeLanguageCode(code){const c=String(code||'').trim();return c==='zh'?'zh-CN':c}
+function sameWord(a,b){
+  const norm=x=>cleanText(x).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\p{L}\p{N}]+/gu,' ').replace(/\s+/g,' ').trim();
+  return !!b&&norm(a)===norm(b);
+}
+function splitMeanings(text){
+  const cleaned=cleanText(text);if(!cleaned)return [];
+  const parts=cleaned.split(/\s*\/\s*|\s*;\s*|\s*\|\s*/).map(cleanText).filter(Boolean);
+  const out=[];const seen=new Set();
+  for(const p of parts){const k=p.toLowerCase();if(!seen.has(k)){seen.add(k);out.push(p)}}
+  return out.slice(0,4);
+}
+function formatMeanings(items){
+  const vals=[];const seen=new Set();
+  for(const item of (Array.isArray(items)?items:[items])) for(const p of splitMeanings(item)){
+    const k=p.toLowerCase();if(p&&!seen.has(k)){seen.add(k);vals.push(p)}
+  }
+  return vals.slice(0,4).join(' / ');
+}
+function languageTokenCount(text){
+  return cleanText(text).split(/\s+/).filter(Boolean).length;
+}
+function looksLikeBadTranslation(value, sourceWord, target){
+  const v=cleanText(value).toLowerCase();
+  if(!v || sameWord(sourceWord,v)) return true;
+  // Labels and reverse-language artefacts that should never appear as translations.
+  const labels=/^(verb|noun|adjective|adverb|pronoun|preposition|conjunction|interjection|article|participle|auxiliary|main|see|word|definition|example|synonym|translation)$/i;
+  if(labels.test(v)) return true;
+  // English-only fragments must not leak into a non-English target.
+  if(target!=='en' && /^(the|a|an|see|main|verb|noun|adjective|adverb)$/.test(v)) return true;
+  return false;
+}
+function uniqueMeaningList(values,sourceWord,target='id'){
+  const out=[],seen=new Set();
+  for(const raw of values){
+    const v=cleanText(raw).replace(/^[-•·]+|[-•·]+$/g,'').trim();
+    if(!v||v.length>80||looksLikeBadTranslation(v,sourceWord,target))continue;
+    const k=v.toLowerCase();
+    if(!seen.has(k)){seen.add(k);out.push(v)}
+  }
+  return out.slice(0,4);
+}
+
+// High-confidence phrase corrections for common literal-translation failures.
+// These are only used when the source and target pair is known.
+const TRUSTED_TRANSLATIONS={
+  'en|id':{
+    'spoiled food':['makanan basi','makanan yang sudah busuk','makanan yang sudah rusak'],
+    'spoiled':['basi','busuk','rusak'],
+    'rotten food':['makanan busuk','makanan yang sudah busuk'],
+    'derived':['berasal dari','diturunkan dari','diperoleh dari'],
+    'perceived':['dirasakan','dipersepsikan','dianggap'],
+    'sought':['dicari','diupayakan'],
+    'primary':['utama','pokok','primer'],
+    'reliance':['ketergantungan','kebergantungan','andalan'],
+    'circumstances':['keadaan','kondisi','situasi'],
+    'instance':['contoh','kejadian','contoh kasus'],
+    'retained':['dipertahankan','disimpan','ditahan'],
+    'undertake':['melakukan','menjalankan','mengemban'],
+    'get into':['masuk ke','terlibat dalam','mulai melakukan'],
+    'eventually':['akhirnya','pada akhirnya'],
+    'obvious':['jelas','sudah jelas terlihat'],
+    'beyond':['di luar','melampaui'],
+    'within':['dalam','di dalam batas'],
+    'neighborhoods':['lingkungan sekitar','kawasan tempat tinggal'],
+    'fuel':['bahan bakar','energi'],
+    'convenience':['kemudahan','kenyamanan']
+  }
+};
+function canonicalSourcePair(source,target){
+  const s=normalizeLanguageCode(source)||'';
+  const t=normalizeLanguageCode(target)||'';
+  return s&&t?`${s}|${t}`:'';
+}
+function trustedTranslationsFor(word,source,target){
+  const map=TRUSTED_TRANSLATIONS[canonicalSourcePair(source,target)];
+  if(!map)return [];
+  const key=cleanText(word).toLowerCase();
+  return map[key]||[];
+}
+function repairKnownBadTranslation(word,translation,target){
+  const t=normalizeLanguageCode(target)||'id';
+  const v=cleanText(translation);
+  const low=String(word||'').toLowerCase();
+  if(t==='id' && /^makanan\s+manja$/i.test(v) && /\bspoiled\s+food\b/i.test(low)){
+    return 'Makanan basi / Makanan yang sudah busuk / Makanan yang sudah rusak';
+  }
+  return v;
+}
+
+async function translateAuto(text,target,sourceHint=''){
+  if(!text)return{translation:'',source:''};
+  const cleanInput=cleanText(text);
+  let source=normalizeLanguageCode(sourceHint)||'';
+
+  // 0) High-confidence local correction for known phrases. This prevents
+  // literal machine translations such as "spoiled food" -> "makanan manja".
+  if(source){
+    const trusted=trustedTranslationsFor(cleanInput,source,target);
+    if(trusted.length)return{translation:formatMeanings(trusted),source};
+  }
+
+  // 1) Natural machine translation.
+  try{
+    const url='https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl='+encodeURIComponent(target)+'&dt=t&q='+encodeURIComponent(cleanInput);
+    const res=await fetch(url,{cache:'no-store'});if(!res.ok)throw new Error('translate');
+    const data=await res.json();
+    source=normalizeLanguageCode(data?.[2]||data?.[8]||data?.[7]||source||'');
+    const trusted=trustedTranslationsFor(cleanInput,source,target);
+    if(trusted.length)return{translation:formatMeanings(trusted),source};
+    const primary=Array.isArray(data?.[0])?data[0].map(x=>x?.[0]).filter(Boolean).join(' '):'';
+    const natural=repairKnownBadTranslation(cleanInput,primary,target);
+    const cleanedNatural=cleanMeaning(cleanInput,natural);
+    if(cleanedNatural){
+      const extras=[];
+      // Only enrich single-word items with dictionary alternatives. Phrases stay
+      // context-first so we don't accidentally introduce unrelated terms.
+      if(languageTokenCount(cleanInput)===1){
+        try{
+          const durl='https://clients5.google.com/translate_a/t?client=dict-chrome-ex&sl=auto&tl='+encodeURIComponent(target)+'&q='+encodeURIComponent(cleanInput);
+          const dres=await fetch(durl,{cache:'no-store'});if(dres.ok){
+            const d=await dres.json();
+            source=normalizeLanguageCode(source||d?.src||d?.ld_result?.srclangs?.[0]||'')||source;
+            for(const group of(Array.isArray(d?.dict)?d.dict:[])){
+              for(const term of(Array.isArray(group?.terms)?group.terms:[])){
+                const v=cleanText(term);
+                if(!looksLikeBadTranslation(v,cleanInput,target))extras.push(v);
+              }
+            }
+          }
+        }catch(e){}
+      }
+      const merged=uniqueMeaningList([cleanedNatural,...extras],cleanInput,target);
+      return{translation:formatMeanings(merged),source};
+    }
+  }catch(e){}
+
+  // 2) Secondary provider only if the first provider failed.
+  try{
+    const url='https://api.mymemory.translated.net/get?q='+encodeURIComponent(cleanInput)+'&langpair=auto|'+encodeURIComponent(target);
+    const res=await fetch(url,{cache:'no-store'});if(!res.ok)throw new Error('fallback');
+    const data=await res.json();
+    source=normalizeLanguageCode(data?.responseData?.match||source||'');
+    const translated=cleanMeaning(cleanInput,repairKnownBadTranslation(cleanInput,data?.responseData?.translatedText||'',target));
+    if(translated)return{translation:translated,source};
+  }catch(e){}
+
+  return{translation:'',source};
+}
+async function fetchWordData(word,lang){
+  const cleanWord=cleanText(word);const code=normalizeLanguageCode(lang)||'en';
+  const tryCodes=[code];
+  for(const c of tryCodes){
+    try{
+      const url='https://api.dictionaryapi.dev/api/v2/entries/'+encodeURIComponent(c)+'/'+encodeURIComponent(cleanWord);
+      const res=await fetch(url,{cache:'no-store'});if(!res.ok)continue;
+      const data=await res.json();const entry=data[0]||{};let phonetic=entry.phonetic||'',audio='',example='',part='';
+      for(const p of(entry.phonetics||[])){if(!phonetic&&p.text)phonetic=p.text;if(!audio&&p.audio)audio=p.audio}
+      const defs=[];for(const m of(entry.meanings||[])){if(!part)part=m.partOfSpeech||'';for(const d of(m.definitions||[])){if(d.definition)defs.push(d.definition);if(!example&&d.example)example=d.example;if(defs.length>=3&&example)break}}
+      return{definition:defs.join(' • '),example,part,phonetic,audio,lang:c};
+    }catch(e){}
+  }
+  return{definition:'',example:'',part:'',phonetic:'',audio:'',lang:code};
+}
+function cleanMeaning(word,meaning){const value=cleanText(meaning);if(!value||sameWord(word,value))return '';return formatMeanings(value)}
+async function getMeaning(word,itemMeaning,target){
+  // If the user supplied a translation (word | meaning), trust it as the
+  // primary meaning and only use automatic translation to add other valid
+  // equivalents. This gives the user a way to lock in a known-good translation.
+  const hinted=cleanMeaning(word,itemMeaning);
+  const tr=await translateAuto(word,target);
+  const merged=formatMeanings([hinted,tr.translation]);
+  return{meaning:cleanMeaning(word,merged),source:tr.source||''};
+}
+
+async function prepareVocab(){
+  const btn=document.getElementById('prepareBtn');const target=document.getElementById('targetLang')?.value||'id';
+  const list=parseWords(document.getElementById('pasteInput').value);if(!list.length){alert('Paste dulu vocab yang mau dilatih.');return}
+  btn.disabled=true;btn.textContent='Preparing…';
+  const rows=list.map((item,i)=>({word:item.word,key:i+'-'+slug(item.word),state:'Mendeteksi bahasa…'}));setPrep(rows);
+  const results=await Promise.all(list.map(async(item,i)=>{
+    const key=rows[i].key,word=cleanText(item.word);updatePrep(key,'Menerjemahkan…');
+    const translated=await getMeaning(word,item.meaningHint,target);let source=translated.source||'en';
+    const data=await fetchWordData(word,source);source=normalizeLanguageCode(data.lang||source)||source;
+    updatePrep(key,translated.meaning?'Siap ✓':'Terjemahan belum ditemukan');
+    return{word,data,meaning:translated.meaning,source,target};
+  }));
+  const newWords=[];
+  const seenNew=new Set();
+  for(const r of results){
+    const dedupeKey=String(r.word||'').trim().toLowerCase()+'|'+String(r.target||target);
+    if(seenNew.has(dedupeKey))continue;
+    seenNew.add(dedupeKey);
+    const {word,data,meaning,source,target}=r;let w=db.words.find(x=>x.word.toLowerCase()===word.toLowerCase()&&(x.targetLang||'id')===target);
+    if(w){w.meaning=meaning||w.meaning;w.definition=cleanText(data.definition)||w.definition;w.example=cleanText(data.example)||w.example;w.part=data.part||w.part;w.phonetic=cleanText(data.phonetic)||w.phonetic||'';w.audio=data.audio||w.audio||'';w.sourceLang=source||w.sourceLang||'en';w.targetLang=target;w.sourceName=languageName(w.sourceLang);w.targetName=languageName(target);w.updatedAt=Date.now()}
+    else{w={id:(crypto.randomUUID?crypto.randomUUID():Date.now()+Math.random()),word,meaning:meaning||'',definition:cleanText(data.definition)||'',example:cleanText(data.example)||'',part:data.part||'',phonetic:cleanText(data.phonetic)||'',audio:data.audio||'',sourceLang:source||'en',targetLang:target,sourceName:languageName(source||'en'),targetName:languageName(target),enIdScore:0,idEnScore:0,enIdCorrect:0,enIdWrong:0,idEnCorrect:0,idEnWrong:0,mastery:0,correct:0,wrong:0,addedDate:todayKey,nextReview:Date.now(),lastSeen:null};db.words.push(w)}
+    if(!Number.isFinite(w.enIdScore))w.enIdScore=Number(w.mastery)||0;if(!Number.isFinite(w.idEnScore))w.idEnScore=Number(w.mastery)||0;
+    newWords.push(w);
+  }
+  const setNo=Number(db.nextSetNumber)||1;db.sets.push({id:'set-'+Date.now()+'-'+setNo,number:setNo,createdDate:todayKey,wordIds:[...new Set(newWords.map(w=>w.id))],targetLang:target});db.nextSetNumber=setNo+1;db.daily={wordIds:[...new Set(newWords.map(w=>w.id))],updatedDate:todayKey,targetLang:target};
+  btn.disabled=false;btn.textContent='Prepare & Start →';save();closePaste();startList(newWords,'daily');
+}
+
+function startList(list,purpose='daily'){
+  // Safety: never let the same vocab enter a training session twice.
+  const seen=new Set();
+  const unique=list.filter(w=>{const key=String(w?.id||w?.word||'').toLowerCase();if(!key||seen.has(key))return false;seen.add(key);return true;});
+  learnState={idx:0,list:unique,after:purpose};
+  showPage('learn');
+  renderLearn();
+}
+function startToday(){const list=currentDailySetWords();if(!list.length){openPaste();return}startList(list,'daily')}
+function renderMeaningChips(word,meaning){
+  const parts=splitMeanings(meaning).filter(x=>!sameWord(word,x));
+  if(!parts.length)return '<div class="translation-stack"><div class="translation-primary">Terjemahan belum tersedia</div></div>';
+  const primary=`<div class="translation-primary">${esc(parts[0])}</div>`;
+  const alts=parts.slice(1);
+  const altHtml=alts.length?`<div class="translation-alts">${alts.map(p=>`<span class="translation-alt">${esc(p)}</span>`).join('')}</div>`:'';
+  const meta=alts.length?`<div class="translation-meta">${alts.length===1?'1 padanan umum lainnya':'Beberapa padanan umum yang masih relevan'}</div>`:'';
+  return `<div class="translation-stack">${primary}${altHtml}${meta}</div>`;
+}
+function meaningNeedsRepair(w){
+  const m=cleanText(w?.meaning||'').toLowerCase();
+  if(!m)return true;
+  if(/\b(verb|noun|adjective|adverb|pronoun|preposition|conjunction|interjection|main|see|word)\b/i.test(m))return true;
+  if(/\bmanja\b/.test(m) && /food|spoiled|rotten|stale/i.test(String(w?.word||'')))return true;
+  if(/^ini versi tanpa/i.test(m))return true;
+  return false;
+}
+async function refreshWordTranslation(w){
+  if(!w||w.__translationRefreshing)return;
+  w.__translationRefreshing=true;
+  try{
+    const target=w.targetLang||'id';
+    const tr=await translateAuto(w.word,target);
+    if(tr.translation){
+      w.meaning=tr.translation;
+      if(tr.source){w.sourceLang=tr.source;w.sourceName=languageName(tr.source)}
+      w.targetLang=target;w.targetName=languageName(target);w.updatedAt=Date.now();
+      localStorage.setItem(KEY,JSON.stringify(db));
+      if(learnState.list[learnState.idx]===w){
+        document.getElementById('learnMeaning').innerHTML=renderMeaningChips(w.word,w.meaning);
+        const parts=splitMeanings(w.meaning);
+        const hint=document.getElementById('learnMeaningHint');
+        if(hint){hint.style.display=parts.length>1?'block':'none';hint.textContent=parts.length>1?'Padanan lain yang masih relevan untuk konteks umum.':''}
+      }
+    }
+  }finally{w.__translationRefreshing=false}
+}
+function renderLearn(){
+  const w=learnState.list[learnState.idx];if(!w){startQuiz('source-target',learnState.list,learnState.after);return}
+  const i=learnState.idx,pct=Math.round((i+1)/learnState.list.length*100);
+  const sourceName=w.sourceName||languageName(w.sourceLang||'en');
+  const targetName=w.targetName||languageName(w.targetLang||'id');
+  const trusted=trustedTranslationsFor(w.word,w.sourceLang||'en',w.targetLang||'id');
+  if(trusted.length && meaningNeedsRepair(w)){w.meaning=formatMeanings(trusted);localStorage.setItem(KEY,JSON.stringify(db))}
+  const parts=splitMeanings(w.meaning).filter(x=>!sameWord(w.word,x));
+  document.getElementById('learnLabel').textContent=`Kenali ${i+1} dari ${learnState.list.length}`;
+  document.getElementById('learnPct').textContent=pct+'%';
+  document.getElementById('learnBar').style.width=pct+'%';
+  document.getElementById('learnSourceLabel').textContent=sourceName.toUpperCase();
+  document.getElementById('learnTargetLabel').textContent=`TERJEMAHAN • ${targetName.toUpperCase()}`;
+  document.getElementById('learnWord').textContent=w.word;
+  document.getElementById('learnMeaning').innerHTML=renderMeaningChips(w.word,w.meaning);
+  const hint=document.getElementById('learnMeaningHint');
+  if(hint){hint.style.display=parts.length>1?'block':'none';hint.textContent=parts.length>1?'Ada padanan lain yang masih relevan.':''}
+  document.getElementById('learnPhonetic').textContent=w.phonetic||`Dengarkan dalam ${sourceName}`;
+  document.getElementById('nextLearnBtn').textContent=i===learnState.list.length-1?'Mulai Test →':'Lanjut →';
+  document.getElementById('pronounceBtn').disabled=!w.word;
+  if(!w.phonetic&&!w.audio)loadPronunciation(w);
+  if(meaningNeedsRepair(w)) refreshWordTranslation(w);
+}
+async function loadPronunciation(w){try{const data=await fetchWordData(w.word,w.sourceLang||'en');if(data.phonetic||data.audio){w.phonetic=data.phonetic||w.phonetic||'';w.audio=data.audio||w.audio||'';w.sourceLang=data.lang||w.sourceLang;w.sourceName=languageName(w.sourceLang);localStorage.setItem(KEY,JSON.stringify(db))}if(learnState.list[learnState.idx]===w){document.getElementById('learnPhonetic').textContent=w.phonetic||`Dengarkan dalam ${w.sourceName||languageName(w.sourceLang||'en')}`;document.getElementById('pronounceBtn').disabled=!w.word}}catch(e){if(learnState.list[learnState.idx]===w)document.getElementById('learnPhonetic').textContent=`Dengarkan dalam ${w.sourceName||languageName(w.sourceLang||'en')}`}}
+let pronunciationBusy=false;
+let pronunciationAudio=null;
+function speakCurrentWord(){
+  const w=learnState.list[learnState.idx];
+  if(!w?.word||pronunciationBusy)return;
+  pronunciationBusy=true;
+  const btn=document.getElementById('pronounceBtn');
+  if(btn)btn.disabled=true;
+
+  // Stop any previous pronunciation first. This prevents Android Chrome from
+  // stacking/replaying the same utterance when the button is tapped quickly.
+  try{speechSynthesis?.cancel()}catch(e){}
+  if(pronunciationAudio){try{pronunciationAudio.pause();pronunciationAudio.currentTime=0}catch(e){}pronunciationAudio=null}
+
+  const done=()=>{pronunciationBusy=false;if(btn)btn.disabled=!w.word};
+  if(w.audio){
+    const a=new Audio(w.audio);
+    pronunciationAudio=a;
+    let settled=false;
+    const finish=()=>{if(settled)return;settled=true;pronunciationAudio=null;done()};
+    a.onended=finish;
+    // Jangan fallback ke TTS dari event onerror setelah audio sempat mulai.
+    // Di Android, ini bisa membuat satu kata terdengar 2x.
+    a.onerror=()=>{
+      if(!a.currentTime || a.currentTime < 0.05){
+        finish();
+        speakFallback(w.word,w.sourceLang);
+      }else{
+        finish();
+      }
+    };
+    a.play().catch(()=>{
+      finish();
+      speakFallback(w.word,w.sourceLang);
+    });
+    return;
+  }
+  speakFallback(w.word,w.sourceLang,done);
+}
+function speakFallback(word,lang,onDone){
+  if(!('speechSynthesis' in window)){if(onDone)onDone();else alert('Audio pronunciation tidak tersedia di browser ini.');return}
+  try{speechSynthesis.cancel()}catch(e){}
+  // Beri Android Chrome sedikit waktu untuk benar-benar mengosongkan queue.
+  // Ini mencegah utterance yang sama dimainkan dua kali.
+  setTimeout(()=>{
+  const u=new SpeechSynthesisUtterance(word);
+  u.lang=lang||'en';
+  u.rate=.82;
+  u.pitch=1;
+  let finished=false;
+  const finish=()=>{if(finished)return;finished=true;if(onDone)onDone()};
+  u.onend=finish;
+  u.onerror=finish;
+  speechSynthesis.speak(u);
+  },60);
+}
+function nextLearn(){if(learnState.idx<learnState.list.length-1){learnState.idx++;renderLearn()}else startQuiz('source-target',learnState.list,learnState.after)}
+function prevLearn(){if(learnState.idx>0){learnState.idx--;renderLearn()}}
+
+function startQuiz(mode,list,purpose='daily',session=null){quizState={idx:0,list:[...list],mode,purpose,session:session||{}};showPage('train');renderQuiz()}
+function normalize(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\p{L}\p{N}]+/gu,' ').replace(/\s+/g,' ').trim()}
+function acceptedMeaning(expected,typed){const t=normalize(typed);if(!t)return false;const parts=String(expected||'').split(/\s*\/\s*|\s*;\s*|\s*\|\s*/).map(normalize).filter(Boolean);return parts.some(p=>p===t)||normalize(expected)===t}
+function acceptedSource(expected,typed){return normalize(expected)===normalize(typed)}
+function addSessionAnswer(w,mode,ok){if(!quizState.session[w.id])quizState.session[w.id]={'source-target':null,'target-source':null};quizState.session[w.id][mode]=ok}
+function updateWordScore(w,mode,ok){const scoreKey=mode==='source-target'?'enIdScore':'idEnScore';const cKey=mode==='source-target'?'enIdCorrect':'idEnCorrect';const wKey=mode==='source-target'?'enIdWrong':'idEnWrong';
+// FIX: satu jawaban benar di masing-masing arah harus cukup untuk mencapai status "Hafal".
+// Sebelumnya +40 membuat vocab baru hanya mencapai 40% per arah setelah 1x benar,
+// sehingga 2 sesi benar semua tetap terbaca sebagai Learning.
+const delta=ok?80:-30;
+w[scoreKey]=Math.max(0,Math.min(100,(w[scoreKey]||0)+delta));w[cKey]=(w[cKey]||0)+(ok?1:0);w[wKey]=(w[wKey]||0)+(ok?0:1);w.mastery=scoreFor(w);w.lastSeen=Date.now();w.nextReview=Date.now()+reviewDelay(scoreFor(w),ok);localStorage.setItem(KEY,JSON.stringify(db));render()}
+function reviewDelay(score,ok){if(!ok)return 10*60*1000;if(score<60)return 24*60*60*1000;if(score<80)return 3*24*60*60*1000;if(score<95)return 7*24*60*60*1000;return 14*24*60*60*1000}
+function updateQuizMobileBar(){
+  const bar=document.getElementById('quizMobileBar'), action=document.getElementById('quizMobileActionBtn'), clear=document.getElementById('quizMobileClearBtn'), input=document.getElementById('typedAnswer'), result=document.getElementById('result');
+  if(!bar||!action||!clear)return;
+  const isAnswered=!!(input&&input.readOnly);
+  const isLast=quizState.idx===quizState.list.length-1;
+  bar.classList.add('show');
+  syncQuizBarToKeyboard();
+  clear.style.display=isAnswered?'none':'inline-flex';
+  action.textContent=isAnswered?(isLast?(quizState.mode==='source-target'?'Lanjut ke bahasa target → sumber':'Lihat Hasil →'):'Next →'):'Submit';
+  action.onclick=isAnswered?nextQuiz:submitTyped;
+}
+function clearQuizAnswer(){
+  const input=document.getElementById('typedAnswer');
+  if(!input||input.readOnly)return;
+  input.value='';
+  input.focus();
+}
+function submitOrNextMobile(){
+  const input=document.getElementById('typedAnswer');
+  if(input?.readOnly)nextQuiz();
+  else submitTyped();
+}
+function syncQuizBarToKeyboard(){
+  const vv=window.visualViewport;
+  if(!vv){document.documentElement.style.setProperty('--ime-offset','0px');return}
+  const offset=Math.max(0,window.innerHeight-vv.height-vv.offsetTop);
+  document.documentElement.style.setProperty('--ime-offset',offset+'px');
+}
+if(window.visualViewport){
+  window.visualViewport.addEventListener('resize',syncQuizBarToKeyboard,{passive:true});
+  window.visualViewport.addEventListener('scroll',syncQuizBarToKeyboard,{passive:true});
+}
+window.addEventListener('resize',syncQuizBarToKeyboard,{passive:true});
+function hideQuizMobileBar(){document.getElementById('quizMobileBar')?.classList.remove('show');document.documentElement.style.setProperty('--ime-offset','0px')}
+function renderQuiz(){
+  const s=quizState;if(s.idx>=s.list.length){hideQuizMobileBar();if(s.mode==='source-target'){const carriedSession=s.session;startQuiz('target-source',s.list,s.purpose,carriedSession)}else finishQuiz(s.list,s.purpose);return}
+  const w=s.list[s.idx],sourceToTarget=s.mode==='source-target',sourceName=w.sourceName||languageName(w.sourceLang||'en'),targetName=w.targetName||languageName(w.targetLang||'id');
+  document.getElementById('modeEyebrow').textContent=sourceToTarget?`${sourceName.toUpperCase()} → ${targetName.toUpperCase()}`:`${targetName.toUpperCase()} → ${sourceName.toUpperCase()}`;document.getElementById('quizCounter').textContent=`${s.idx+1} / ${s.list.length}`;document.getElementById('quizType').textContent=s.purpose==='evaluation'?'EVALUATION':'NEW';document.getElementById('nextQuizBtn').style.display='none';document.getElementById('result').style.display='none';document.getElementById('answerArea').innerHTML='';document.getElementById('directionNote').textContent=sourceToTarget?`Lihat hanya ${sourceName}. Ketik terjemahannya dalam ${targetName}. Tidak ada pilihan ganda.`:`Lihat hanya terjemahan ${targetName}. Ketik vocab dalam ${sourceName}. Tidak ada pilihan ganda.`;document.getElementById('question').innerHTML=sourceToTarget?`<div class="prompt-label">${esc(sourceName.toUpperCase())}</div><br><b style="font-size:38px">${esc(w.word)}</b>`:`<div class="prompt-label">${esc(targetName.toUpperCase())}</div><br><b style="font-size:24px">${esc(w.meaning||'Terjemahan belum tersedia')}</b>`;
+  document.getElementById('answerArea').innerHTML='<div class="answer-box"><input id="typedAnswer" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Ketik jawaban lu…"><button class="btn primary" onclick="submitTyped()">Submit</button></div>';updateQuizMobileBar();syncQuizBarToKeyboard();setTimeout(()=>{const inp=document.getElementById('typedAnswer');inp?.focus();inp?.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if(inp.readOnly)nextQuiz();else submitTyped()}})},50)
+}
+
+function submitTyped(){const s=quizState,w=s.list[s.idx],input=document.getElementById('typedAnswer');if(!input||input.readOnly)return;const typed=input.value.trim();if(!typed)return;const sourceToTarget=s.mode==='source-target',expected=sourceToTarget?(w.meaning||''):w.word,ok=sourceToTarget?acceptedMeaning(expected,typed):acceptedSource(expected,typed);input.readOnly=true;input.setAttribute('aria-readonly','true');input.style.borderColor=ok?'#267a5b':'#7e3042';addSessionAnswer(w,s.mode,ok);updateWordScore(w,s.mode,ok);showTypedResult(ok,w,expected,typed);updateQuizMobileBar();setTimeout(()=>document.getElementById('result')?.scrollIntoView({behavior:'smooth',block:'center'}),60)}
+function showTypedResult(ok,w,expected,typed){const box=document.getElementById('result');box.style.display='block';box.className='result '+(ok?'good':'bad');if(ok){box.innerHTML=`✅ <b>Benar.</b> Jawaban lu diterima.<br><span class="tiny">Score vocab ini sekarang: ${mastery(w)}% • ${status(w)}</span>`}else{box.innerHTML=`❌ <b>Belum tepat.</b><br>Jawaban yang tersimpan: <b>${esc(expected||'—')}</b><br><span class="tiny">Jawaban lu: ${esc(typed)} • Score vocab ini sekarang: ${mastery(w)}%</span>`}const btn=document.getElementById('nextQuizBtn');btn.style.display='inline-block';btn.textContent=quizState.idx===quizState.list.length-1?(quizState.mode==='source-target'?'Lanjut ke bahasa target → sumber':'Lihat Hasil →'):'Next →'}
+function nextQuiz(){quizState.idx++;renderQuiz();requestAnimationFrame(()=>document.getElementById('typedAnswer')?.focus())}
+function sessionStats(list){let correct=0,wrong=0,weak=[],mastered=[];for(const w of list){const r=quizState.session[w.id]||{};if(r['source-target']===true)correct++;else if(r['source-target']===false)wrong++;if(r['target-source']===true)correct++;else if(r['target-source']===false)wrong++;const bothCorrect=r['source-target']===true&&r['target-source']===true;const anyWrong=r['source-target']===false||r['target-source']===false||status(w)==='Weak';if(anyWrong)weak.push(w);if(bothCorrect&&status(w)==='Hafal')mastered.push(w)}return{correct,wrong,weak,mastered}}
+function finishQuiz(list,purpose){render();lastAnalysis={...sessionStats(list),all:list};renderAnalysis(purpose);showPage('analysis')}
+function renderAnalysis(purpose){document.getElementById('analysisTitle').textContent=purpose==='evaluation'?'Hasil Evaluasi Vocab Lemah':'Hasil Training Hari Ini';document.getElementById('analysisSubtitle').textContent=purpose==='evaluation'?'Fokus tadi hanya pada vocab yang sebelumnya masih lemah.':'Analisis dibuat dari dua recall: bahasa sumber → bahasa tujuan dan sebaliknya.';document.getElementById('sumCorrect').textContent=lastAnalysis.correct;document.getElementById('sumWrong').textContent=lastAnalysis.wrong;document.getElementById('sumWeak').textContent=lastAnalysis.weak.length;document.getElementById('sumMastered').textContent=lastAnalysis.mastered.length;document.getElementById('weakCountText').textContent=lastAnalysis.weak.length+' words';document.getElementById('masteredCountText').textContent=lastAnalysis.mastered.length+' words';document.getElementById('analysisWeak').innerHTML=lastAnalysis.weak.length?lastAnalysis.weak.map(w=>analysisItem(w,true)).join(''):'<div class="empty">Tidak ada vocab yang masuk kategori lemah pada sesi ini.</div>';document.getElementById('analysisMastered').innerHTML=lastAnalysis.mastered.length?lastAnalysis.mastered.map(w=>analysisItem(w,false)).join(''):'<div class="empty">Belum ada vocab yang memenuhi status hafal.</div>'}
+function analysisItem(w,isWeak){const r=quizState.session[w.id]||{};const missed=[];if(r['source-target']===false)missed.push((w.sourceName||languageName(w.sourceLang||'en'))+' → '+(w.targetName||languageName(w.targetLang||'id')));if(r['target-source']===false)missed.push((w.targetName||languageName(w.targetLang||'id'))+' → '+(w.sourceName||languageName(w.sourceLang||'en')));return `<div class="analysis-item"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px"><div style="min-width:0"><b>${esc(w.word)}</b><div class="tiny">${esc(w.meaning||'Terjemahan belum tersedia')}</div></div>${isWeak?`<button class="btn primary" style="padding:7px 10px;white-space:nowrap" onclick="checkWeakWord('${esc(w.id)}')">Cek</button>`:''}</div><div class="score-row"><span>Score</span><strong>${mastery(w)}%</strong></div><div class="score-bar"><i style="width:${mastery(w)}%"></i></div><div class="analysis-meta"><span class="tag ${statusClass(w)}">${status(w)}</span>${isWeak&&missed.length?`<span class="tiny">Salah: ${esc(missed.join(' + '))}</span>`:''}</div></div>`}
+function openEvaluation(){const weak=lastAnalysis.weak.length?lastAnalysis.weak:[...lastAnalysis.all].filter(w=>status(w)!=='Hafal');document.getElementById('evalList').innerHTML=weak.length?weak.map(evalCard).join(''):'<div class="empty">Belum ada vocab yang perlu dievaluasi.</div>';document.getElementById('evalSummary').innerHTML=weak.length?`<b>Prioritas:</b> ${weak.length} vocab perlu diperkuat. Pelajari arti + contoh di atas dulu, lalu ulangi test hanya untuk vocab tersebut.`:'✅ Semua vocab pada sesi ini cukup kuat untuk lanjut.';showPage('evaluation')}
+function evalCard(w){const r=quizState.session[w.id]||{};const missed=[];if(r['source-target']===false)missed.push((w.sourceName||languageName(w.sourceLang||'en'))+' → '+(w.targetName||languageName(w.targetLang||'id')));if(r['target-source']===false)missed.push((w.targetName||languageName(w.targetLang||'id'))+' → '+(w.sourceName||languageName(w.sourceLang||'en')));return `<div class="eval-card"><div class="eval-word">${esc(w.word)}</div><div class="eval-meaning">${esc(w.meaning||w.definition||'Terjemahan belum tersedia')}</div>${w.example?`<div class="eval-example">“${esc(w.example)}”</div>`:'<div class="eval-example">Contoh kalimat belum tersedia.</div>'}<div class="reason">Fokus ulang: ${esc(missed.join(' + ')||'penguatan umum')} • Score saat ini ${mastery(w)}%</div></div>`}
+function repeatWeakTest(){const weak=lastAnalysis.weak.length?lastAnalysis.weak:[...lastAnalysis.all].filter(w=>status(w)!=='Hafal');if(!weak.length){showPage('analysis');return}startList(weak,'evaluation')}
+function checkWeakWord(wordId){const w=db.words.find(x=>x.id===wordId);if(!w){alert('Vocab tidak ditemukan.');return}startList([w],'evaluation')}
+function focusWeak(){const weak=[...db.words].filter(w=>status(w)==='Weak').sort((a,b)=>mastery(a)-mastery(b)).slice(0,10);if(!weak.length){alert('Belum ada vocab lemah.');return}startList(weak,'evaluation')}
+cleanStoredWords();
+render();
+document.getElementById('progressModal')?.addEventListener('click',e=>{if(e.target.id==='progressModal')closeProgressList()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeProgressList()});
+</script>
+</body>
+</html>
